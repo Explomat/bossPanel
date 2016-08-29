@@ -8,6 +8,10 @@
   "plugins": [
     "react"
   ],
+  "globals": {
+      "Promise": true,
+      "ActiveXObject": true
+  },
   "rules": {
     "no-debugger": 0,
     "no-console": 0,

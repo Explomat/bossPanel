@@ -30,20 +30,15 @@ function Server(srv){
 	}
 }
 
-export default {
-	/*
-		srv: {id: 1, name: 'test'}
-	*/
-	addServer: function(srv){
-		if (typeof srv !== 'object'){
-			throw TypeError('Argument must be an object like this \r\n "{id: 1, name: \'Test\'}"');
-		}
-		let server = new Server(srv);
-		servers.push(server);
-		return server;
-	},
-
-	getAll: function(){
-		return servers;
+export function addServer(srv){
+	if (typeof srv !== 'object'){
+		throw TypeError('Argument must be an object like this \r\n "{id: 1, name: \'Test\'}"');
 	}
+	let server = new Server(srv);
+	servers.push(server);
+	return server;
+}
+
+export function getAll(){
+	return servers;
 }

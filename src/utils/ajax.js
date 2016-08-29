@@ -1,4 +1,3 @@
-import {Promise} from 'es6-promise';
 const AJAX_TIME_OVER = 10000;
 const CACHE_MAX_REQUESTS = 10;
 let cache = {};
@@ -63,12 +62,10 @@ function sendRequest(url, data, isCache, requestType) {
         };
         xmlHttp.send(data || null);
 
-        if (isSync){
-            var timeout = setTimeout( function(){ 
-                xmlHttp.abort();
-                reject("Ajax request time over");
-            }, AJAX_TIME_OVER);
-        }
+        var timeout = setTimeout( function(){ 
+            xmlHttp.abort();
+            reject("Ajax request time over");
+        }, AJAX_TIME_OVER);
     }.bind(this));
 
     if (isCache) {
@@ -78,77 +75,68 @@ function sendRequest(url, data, isCache, requestType) {
     return resp;
 }
 
-export default {
 
-    get(url, isCache){
-        return sendRequest(url, null, isCache);
-    },
+export function get(url, isCache){
+    return sendRequest(url, null, isCache);
+}
 
-    post(url, data, isCache){
-        var serializedData = null;
-        try {
-            serializedData = JSON.stringify(data);
-        }catch(e) {
-            console.log(e.message);
-        }
+export function post(url, data, isCache){ 
+    return sendRequest(url, data, isCache, 'POST');
+}
+
+export function uploadFile(url, file){
+
+    return new Promise(function(resolve, reject){
+        var xmlHttp = getXmlHttp();
+
+        xmlHttp.onreadystatechange = function() {
+          if (xmlHttp.readyState == 4) {
+
+            if(xmlHttp.status == 200){
+               resolve(xmlHttp.responseText);
+            }
+            else {
+                console.log(xmlHttp.status);
+                reject(xmlHttp.statusText || "Upload file error");
+            }
+          }
+        };
+
+        xmlHttp.open('POST', url);
+
+        var formData = new FormData();
+        formData.append('file', file, file.name);
         
-        return sendRequest(url, serializedData, isCache, 'POST');
-    },
 
-    uploadFile(url, file){
+        xmlHttp.send(formData);
+    });
+}
 
-        return new Promise(function(resolve, reject){
-            var xmlHttp = getXmlHttp();
+export function uploadFiles(url, files) {
+    return new Promise(function(resolve, reject){
+        var xmlHttp = getXmlHttp();
 
-            xmlHttp.onreadystatechange = function() {
-              if (xmlHttp.readyState == 4) {
+        xmlHttp.onreadystatechange = function() {
+          if (xmlHttp.readyState == 4) {
 
-                if(xmlHttp.status == 200){
-                   resolve(xmlHttp.responseText);
-                }
-                else {
-                    console.log(xmlHttp.status);
-                    reject(xmlHttp.statusText || "Upload file error");
-                }
-              }
-            };
+            if(xmlHttp.status == 200){
+               resolve(xmlHttp.responseText);
+            }
+            else {
+                console.log(xmlHttp.status);
+                reject(xmlHttp.statusText || "Upload file error");
+            }
+          }
+        };
 
-            xmlHttp.open('POST', url);
+        xmlHttp.open('POST', url);
 
-            var formData = new FormData();
-            formData.append('file', file, file.name);
+        var formData = new FormData();
+        for (var i = files.length - 1; i >= 0; i--) {
+            let file = files[i];
+            formData.append('files[]', file, file.name);
             
-
-            xmlHttp.send(formData);
-        });
-    },
-
-    uploadFiles(url, files) {
-        return new Promise(function(resolve, reject){
-            var xmlHttp = getXmlHttp();
-
-            xmlHttp.onreadystatechange = function() {
-              if (xmlHttp.readyState == 4) {
-
-                if(xmlHttp.status == 200){
-                   resolve(xmlHttp.responseText);
-                }
-                else {
-                    console.log(xmlHttp.status);
-                    reject(xmlHttp.statusText || "Upload file error");
-                }
-              }
-            };
-
-            xmlHttp.open('POST', url);
-
-            var formData = new FormData();
-            for (var i = files.length - 1; i >= 0; i--) {
-                let file = files[i];
-                formData.append('files[]', file, file.name);
-                
-            };  
-            xmlHttp.send(formData);
-        });
-    }
+        };  
+        xmlHttp.send(formData);
+    });
 }

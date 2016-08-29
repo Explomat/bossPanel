@@ -1,17 +1,13 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require ('extract-text-webpack-plugin');
-//var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
-
-var production = JSON.parse(process.env.NODE_ENV || 'false');
-var devTools = production ? 'source-map' : 'cheap-inline-module-source-map';
 
 module.exports = {
     entry: {
-        main: ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './js/main'],
+        main: ['webpack-dev-server/client?http://0.0.0.0:8080/', 'webpack/hot/only-dev-server', './src/index.jsx'],
         react: ['react']
     },
-    devtool: devTools,
+    devtool: 'source-map',
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/',
@@ -28,7 +24,7 @@ module.exports = {
                 test: /(\.js$)|(\.jsx$)/,
                 loaders: ['eslint'],
                 include: [
-                  path.resolve(__dirname, "js"),
+                  path.resolve(__dirname, "src"),
                 ],
             }
         ],
@@ -53,13 +49,12 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 loaders: ['react-hot', 'babel-loader'],
-                include: path.join(__dirname, 'js/components')
+                include: path.join(__dirname, 'src')
             },
             {
                 test: /\.js$/,
                 loader: 'babel',
-                include: path.join(__dirname, 'js'),
-                exclude: path.join(__dirname, 'js/components')
+                include: path.join(__dirname, 'src'),
             }
         ]
     },
@@ -78,7 +73,6 @@ module.exports = {
             filename: 'react.js'
         }),
         new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
-        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
         new webpack.HotModuleReplacementPlugin()
     ]
 }
