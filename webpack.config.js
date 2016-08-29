@@ -13,15 +13,12 @@ module.exports = {
     },
     devtool: devTools,
     output: {
-        path: path.join(__dirname, 'build'),
-        publicPath: '/build/',
-        filename: 'js/bundle.js',
-        library: '[name]'   
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/',
+        filename: 'bundle.js',
+        library: '[name]'
     },
     resolve: {
-        root: [
-            path.resolve(__dirname, 'js'),
-        ],
         modulesDirectories: ['node_modules'],
         extensions: ['', '.js', '.jsx'],
     },
@@ -70,6 +67,7 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         port: 8080,
+        contentBase: './dist',
         hot: true
     },
 
@@ -77,16 +75,11 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'react',
-            filename: 'js/react.js'
+            filename: 'react.js'
         }),
         new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
         new webpack.HotModuleReplacementPlugin()
-        /*new HtmlWebpackPlugin({
-            title: 'Events',
-            filename: '../backend/index.html',
-            template: './backend/template.html'
-        })*/
     ]
 }
 
