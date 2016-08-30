@@ -1,6 +1,8 @@
-export function setState() {
+import constants from '../constants/constants';
+
+export function getState() {
   return {
     meta: { remote: true, serverName: 'Test' },
-    type: 'SET_STATE'
-  };
+    type: constants.GET_STATE
+  }
 }

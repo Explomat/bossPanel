@@ -1,17 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import Test from '../components/Test';
 import { connect } from 'react-redux';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
-    const { children, test } = this.props
+    const { children, fetching, error } = this.props;
+    if (fetching) {
+      return <h2>Loading...</h2>
+    }
+
     return (
       <div>
-        <h1>{test}</h1>
+        {error ? <h2>{error}</h2> : 
+          <h2>ada</h2>
+        }
+        <Test />
         {children}
       </div>
     )
@@ -22,9 +26,10 @@ App.propTypes = {
   children: PropTypes.node
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
-    test: 'Hello world'
+    fetching: state.get('fetching'),
+    error: state.get('error')
   }
 }
 

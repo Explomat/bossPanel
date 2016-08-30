@@ -1,0 +1,1 @@
+export {ButtonTab, ButtonTabs} from './src/ButtonTabs';

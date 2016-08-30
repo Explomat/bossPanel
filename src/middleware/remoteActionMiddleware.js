@@ -1,4 +1,5 @@
 import {get, post} from '../utils/ajax';
+import actionStatuses from '../utils/actionStatuses';
 import camelcase from 'camelcase';
 import config from '../config';
 
@@ -22,17 +23,18 @@ function requestFromAction(action){
 export default store => next => action => {
 	if (action.meta && action.meta.remote) {
 	    requestFromAction(action).then(data => {
-	    	action.status = 'success';
-	    	action.response = JSON.parse(data);
-	    	action.meta.remote = false;
-	    	store.dispatch(action);
+	    	let newAction = {
+	    		type: action.type + '_SUCCESS',
+	    		response: JSON.parse(data)
+	    	}
+	    	return next(newAction);
 	    }).catch(e => {
-	    	action.status = 'error';
-	    	action.error = e.message;
-	    	action.meta.remote = false;
-	    	store.dispatch(action);
+	    	let newAction = {
+	    		type: action.type + '_FAILURE',
+	    		error: e
+	    	}
+	    	return next(newAction);
 	    });
 	}
-	action.status = 'fetching';
 	return next(action);
 }
