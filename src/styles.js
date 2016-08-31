@@ -1,0 +1,1 @@
+import '../style/chart-block.scss';

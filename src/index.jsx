@@ -1,4 +1,5 @@
-import "babel-polyfill";
+import 'babel-polyfill';
+import './styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory} from 'react-router';

@@ -2,6 +2,7 @@ import {get, post} from '../utils/ajax';
 import actionStatuses from '../utils/actionStatuses';
 import camelcase from 'camelcase';
 import config from '../config';
+import {assign, omit} from 'lodash';
 
 function requestFromAction(action){
 	const meta = action.meta;
@@ -16,7 +17,9 @@ function requestFromAction(action){
 		}), JSON.stringify(action.payload));
 	}
 	else {
-		return get(config.url.createPath({server_name: serverName, action_name: actionName}));
+		let standParams = {server_name: serverName, action_name: actionName};
+		let otherParams = omit(action, ['meta', 'type']);
+		return get(config.url.createPath(assign(standParams, otherParams)));
 	}
 }
 

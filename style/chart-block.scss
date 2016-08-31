@@ -1,0 +1,20 @@
+.chart-block{
+
+	width: 162px;
+    display: inline-block;
+    margin-right: 48px;
+    box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.69);
+    padding: 24px;
+
+    .chart-block__title{
+    	margin-bottom: 16px;
+    }
+
+    .chart-block__buttons {
+    	margin-bottom: 24px;
+    }
+
+	.chart-block__description {
+
+	}
+}
