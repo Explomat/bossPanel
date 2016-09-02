@@ -11,7 +11,7 @@ function getXmlHttp(){
     }
     if (!xmlHttp && typeof(XMLHttpRequest) != 'undefined')
         xmlHttp = new XMLHttpRequest();
-    //xmlHttp.withCredentials = true;
+    xmlHttp.withCredentials = true;
     return xmlHttp;
 }
 

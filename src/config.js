@@ -1,12 +1,12 @@
 import {addServer, getAll} from  './servers';
 
 const routerId = '6238833803725312131';
-const customBaseUrl = '/custom_web_template.html';
+const customBaseUrl = 'http://study.merlion.ru/custom_web_template.html';
 
-addServer({id: '6230716351040721570', name: 'Test'})
+addServer({id: '6322023433485303550', name: 'Test'})
 .addActions(
 	[
-		'setState'
+		'getState'
 	]
 );
 

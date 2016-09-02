@@ -17,4 +17,27 @@
 	.chart-block__description {
 
 	}
+
+	.chart-block__canvas-wrapper{
+		position: relative;
+
+		.chart-block__canvas{
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.chart-block__canvas-tooltip{
+			position: absolute;
+			background: rgba(0, 0, 0, .7);
+			color: white;
+			border-radius: 3px;
+			-webkit-transition: all .1s ease;
+			transition: all .1s ease;
+			pointer-events: none;
+			-webkit-transform: translate(-50%, 0);
+			transform: translate(-50%, 0);
+			white-space: nowrap;
+		}
+	}
 }
