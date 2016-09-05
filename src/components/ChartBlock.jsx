@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {ButtonTab, ButtonTabs} from './modules/button-tabs';
 import Chart from 'chart.js';
-import {assign} from 'lodash';
 
 var customTooltips = function(tooltip) {
 
@@ -79,10 +78,6 @@ class ChartBlock extends Component {
   }
 
   prepareChartData(chartData){
-    /*let colors = this.chartColors;
-    return chartData.map((ch, index) => {
-      return assign(ch, colors[index]);
-    });*/
     chartData = chartData || [];
     const colors = this.chartColors;
     let data = [];

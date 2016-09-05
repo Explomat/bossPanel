@@ -80,7 +80,7 @@ var chartData = {
 class App extends Component {
 
   render() {
-    const { children, fetching, error } = this.props;
+    const { tests, courses, children, fetching, error } = this.props;
     const { selectTestsPeriod, selectCoursesPeriod, selectEventsPeriod, selectAdaptationPeriod, selectLibraryMaterialsPeriod } = this.props;
     if (fetching) {
       return <h2>Loading...</h2>
@@ -90,15 +90,10 @@ class App extends Component {
       <div>
         {error ? <h2>{error}</h2> : 
           <div>
-            <ChartBlock title="Тестирование" chartData={chartData.tests} onSelectPeriod={selectTestsPeriod}/>
-            <ChartBlock title="Курсы" chartData={chartData.courses} onSelectPeriod={selectCoursesPeriod}/>
-            <ChartBlock title="Мероприятия" chartData={chartData.events} onSelectPeriod={selectEventsPeriod}/>
-            <ChartBlock title="Адаптация" chartData={chartData.adaptation} onSelectPeriod={selectAdaptationPeriod}/>
-            <ChartBlock title="Материалы библиотеки" chartData={chartData.libraryMaterials} onSelectPeriod={selectLibraryMaterialsPeriod}/>
+            <ChartBlock title="Тестирование" chartData={tests} onSelectPeriod={selectTestsPeriod}/>
+            <ChartBlock title="Курсы" chartData={courses} onSelectPeriod={selectCoursesPeriod}/>
           </div>
         }
-        
-        
         {children}
       </div>
     )
@@ -111,8 +106,10 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    fetching: state.get('fetching'),
-    error: state.get('error')
+    fetching: state.fetching,
+    error: state.error,
+    tests: state.tests,
+    courses: state.courses
   }
 }
 
