@@ -25,19 +25,26 @@ function requestFromAction(action){
 
 export default store => next => action => {
 	if (action.meta && action.meta.remote) {
-	    requestFromAction(action).then(data => {
+	    requestFromAction(action)
+	    .then(data => {
 	    	let newAction = {
 	    		type: action.type + '_SUCCESS',
 	    		response: JSON.parse(data)
 	    	}
 	    	return next(newAction);
-	    }).catch(e => {
+	    }, e => {
 	    	let newAction = {
 	    		type: action.type + '_FAILURE',
-	    		error: e
+	    		error: e.message
 	    	}
 	    	return next(newAction);
-	    });
+	    }).catch( e => {
+	    	let newAction = {
+	    		type: action.type + '_FAILURE',
+	    		error: e.message
+	    	}
+	    	return next(newAction);
+	    })
 	}
 	return next(action);
 }

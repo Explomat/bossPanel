@@ -7,7 +7,7 @@ function getState(state){
 }
 
 function setFailure(state, error, errorKey, fetchingKey){
-	let newState = assign({}, state, {errorKey: error});
+	let newState = assign({}, state, {[errorKey]: error});
 	delete newState[fetchingKey];
 	return newState;
 	//return state.set(errorKey, error).remove(fetchingKey);
