@@ -6,7 +6,9 @@ const customBaseUrl = 'https://study.merlion.ru/custom_web_template.html';
 addServer({id: '6322023433485303550', name: 'Test'})
 .addActions(
 	[
-		'getState'
+		'getState',
+		'selectTestsResultByPeriod',
+		'selectCoursesResultByPeriod'
 	]
 );
 

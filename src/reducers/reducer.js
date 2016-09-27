@@ -31,36 +31,36 @@ export default function(state = {}, action) {
 		case constants.GET_STATE_SUCCESS:
 			return setSuccess(state, action.response, 'error', 'fetching');
 
-		case constants.SELECT_TESTS_PERIOD:
-			return state.set('testsFetching', true);
-		case constants.SELECT_TESTS_PERIOD_FAILURE:
+		case constants.SELECT_TESTS_RESULT_BY_PERIOD:
+			return assign({}, state, {testsFetching: true});
+		case constants.SELECT_TESTS_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'testsError', 'testsFetching');
-		case constants.SELECT_TESTS_PERIOD_SUCCESS:
+		case constants.SELECT_TESTS_RESULT_BY_PERIOD_SUCCESS:
 			return setSuccess(state, action.response, 'testsError', 'testsFetching');
 
-		case constants.SELECT_COURSES_PERIOD:
-			return state.set('coursesFetching', true);
-		case constants.SELECT_COURSES_PERIOD_FAILURE:
+		case constants.SELECT_COURSES_RESULT_BY_PERIOD:
+			return assign({}, state, {coursesFetching: true});
+		case constants.SELECT_COURSES_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'coursesError', 'coursesFetching');
-		case constants.SELECT_COURSES_PERIOD_SUCCESS:
+		case constants.SELECT_COURSES_RESULT_BY_PERIOD_SUCCESS:
 			return setSuccess(state, action.response, 'coursesError', 'coursesFetching');
 
 		case constants.SELECT_EVENTS_PERIOD:
-			return state.set('eventsFetching', true);
+			return assign({}, state, {eventsFetching: true});
 		case constants.SELECT_EVENTS_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'eventsError', 'eventsFetching');
 		case constants.SELECT_EVENTS_PERIOD_SUCCESS:
 			return setSuccess(state, action.response, 'eventsError', 'eventsFetching');
 
 		case constants.SELECT_ADAPTATION_PERIOD:
-			return state.set('adaptationFetching', true);
+			return assign({}, state, {adaptationFetching: true});
 		case constants.SELECT_ADAPTATION_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'adaptationError', 'adaptationFetching');
 		case constants.SELECT_ADAPTATION_PERIOD_SUCCESS:
 			return setSuccess(state, action.response, 'adaptationError', 'adaptationFetching');
 
 		case constants.SELECT_LIBRARY_MATERIALS_PERIOD:
-			return state.set('libraryMaterialsFetching', true);
+			return assign({}, state, {libraryMaterialsFetching: true});
 		case constants.SELECT_LIBRARY_MATERIALS_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'libraryMaterialsError', 'libraryMaterialsFetching');
 		case constants.SELECT_LIBRARY_MATERIALS_PERIOD_SUCCESS:

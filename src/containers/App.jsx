@@ -80,8 +80,8 @@ var chartData = {
 class App extends Component {
 
   render() {
-    const { tests, courses, children, fetching, error } = this.props;
-    const { selectTestsPeriod, selectCoursesPeriod, selectEventsPeriod, selectAdaptationPeriod, selectLibraryMaterialsPeriod } = this.props;
+    const { testsResultInfo, coursesResultInfo, children, fetching, error } = this.props;
+    const { selectTestsResultByPeriod, selectCoursesResultByPeriod, selectEventsPeriod, selectAdaptationPeriod, selectLibraryMaterialsPeriod } = this.props;
     if (fetching) {
       return <h2>Loading...</h2>
     }
@@ -90,8 +90,8 @@ class App extends Component {
       <div>
         {error ? <h2>{error}</h2> : 
           <div>
-            <ChartBlock title="Тестирование" chartData={tests} onSelectPeriod={selectTestsPeriod}/>
-            <ChartBlock title="Курсы" chartData={courses} onSelectPeriod={selectCoursesPeriod}/>
+            <ChartBlock title="Тестирование" chartData={testsResultInfo} onSelectPeriod={selectTestsResultByPeriod}/>
+            <ChartBlock title="Курсы" chartData={coursesResultInfo} onSelectPeriod={selectCoursesResultByPeriod}/>
           </div>
         }
         {children}
@@ -108,8 +108,8 @@ function mapStateToProps(state) {
   return {
     fetching: state.fetching,
     error: state.error,
-    tests: state.tests,
-    courses: state.courses
+    testsResultInfo: state.testsResultInfo,
+    coursesResultInfo: state.coursesResultInfo
   }
 }
 

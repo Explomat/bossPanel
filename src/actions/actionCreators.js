@@ -7,18 +7,18 @@ export function getState() {
   }
 }
 
-export function selectTestsPeriod(payload) {
+export function selectTestsResultByPeriod(payload) {
   return {
     meta: { remote: true, serverName: 'Test' },
-    type: constants.SELECT_TESTS_PERIOD,
+    type: constants.SELECT_TESTS_RESULT_BY_PERIOD,
     period: payload
   }
 }
 
-export function selectCoursesPeriod(payload) {
+export function selectCoursesResultByPeriod(payload) {
   return {
     meta: { remote: true, serverName: 'Test' },
-    type: constants.SELECT_COURSES_PERIOD,
+    type: constants.SELECT_COURSES_RESULT_BY_PERIOD,
     period: payload
   }
 }
