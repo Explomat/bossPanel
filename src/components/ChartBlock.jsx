@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {ButtonTab, ButtonTabs} from './modules/button-tabs';
 import Chart from 'chart.js';
+import difference from 'lodash/difference';
+import cx from 'classnames';
 
 var customTooltips = function(tooltip) {
 
@@ -52,7 +54,7 @@ class ChartBlock extends Component {
     super(props);
 
     this.chartType = 'pie';
-    this.chartColors = ['#F7464A', '#46BFBD', '#FDB45C'];
+    this.chartColors = ['#FDB45C', '#46bf8b', '#F7464A'];
     this.chartOptions = {
       title: {
           display: false
@@ -68,16 +70,43 @@ class ChartBlock extends Component {
   }
 
   componentDidMount(){
-    var ctx = this.refs.canvas.getContext("2d");
-    var data = this.prepareChartData(this.props.chartData);
-    this.chart = new Chart(ctx, data);
+    this._renderChartIfNeeded(this.props.chartData);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this._renderChartIfNeeded(nextProps.chartData, this.props.chartData);
   }
 
   componentWillUnmount(){
     this.chart.destroy();
   }
 
-  prepareChartData(chartData){
+  _renderChartIfNeeded(chartData, prevChartData){
+    var self = this;
+
+    function renderChart(_chartData){
+      if (self.chart){
+        self.chart.destroy();
+      }
+      
+      var ctx = self.refs.canvas.getContext("2d");
+      var data = self._prepareChartData(_chartData);
+      self.chart = new Chart(ctx, data);
+    }
+
+    if (!prevChartData){
+      renderChart(chartData);
+      return;
+    }
+
+    let curValues = chartData.map(ch => ch.value);
+    let prevValues = prevChartData.map(ch => ch.value);
+    if (difference(curValues, prevValues).length){
+      renderChart(chartData);
+    }
+  }
+
+  _prepareChartData(chartData){
     chartData = chartData || [];
     const colors = this.chartColors;
     let data = [];
@@ -115,15 +144,20 @@ class ChartBlock extends Component {
   }
 
   render() {
-    const {title, chartData} = this.props;
+    const {title, fetching, selectedPeriod, chartData, onSelectPeriod} = this.props;
+    const loadingClasses = cx({
+      'chart-block__loading': true,
+      'chart-block__loading--display': fetching
+    })
     return (
       <div className="chart-block">
         <div className="chart-block__title">{title}</div>
         <ButtonTabs className="chart-block__buttons">
-          <ButtonTab onClick={this.props.onSelectPeriod} payload='month' value='Месяц' selected={true}></ButtonTab>
-          <ButtonTab onClick={this.props.onSelectPeriod} payload='quarter' value='Квартал'></ButtonTab>
-          <ButtonTab onClick={this.props.onSelectPeriod} payload='year' value='Год'></ButtonTab>
+          <ButtonTab onClick={onSelectPeriod} payload='month' value='Месяц' selected={selectedPeriod === 'month'}></ButtonTab>
+          <ButtonTab onClick={onSelectPeriod} payload='quarter' value='Квартал' selected={selectedPeriod === 'quarter'}></ButtonTab>
+          <ButtonTab onClick={onSelectPeriod} payload='year' value='Год' selected={selectedPeriod === 'year'}></ButtonTab>
         </ButtonTabs>
+        <div className={loadingClasses}></div>
         <div className="chart-block__canvas-wrapper">
           <canvas ref="canvas" className="chart-block__canvas" width='150' height='150'/>
           <div className="chart-block__canvas-tooltip"></div>
@@ -139,6 +173,8 @@ class ChartBlock extends Component {
 
 ChartBlock.propTypes = {
   title: PropTypes.string,
+  fetching: PropTypes.bool,
+  selectedPeriod: PropTypes.string,
   chartData: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

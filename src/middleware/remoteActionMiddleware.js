@@ -4,33 +4,27 @@ import camelcase from 'camelcase';
 import config from '../config';
 import {assign, omit} from 'lodash';
 
-function requestFromAction(action){
-	const meta = action.meta;
-	const httpType = meta.httpType;
-	const serverName = meta.serverName;
-	const actionName = camelcase(action.type);
+function requestFromAction(action, params){
+	const httpType = action.meta.httpType;
 
 	if (httpType === 'POST'){
-		return post(config.url.createPath({
-			server_name: serverName,
-			action_name: actionName
-		}), JSON.stringify(action.payload));
+		return post(config.url.createPath(params), JSON.stringify(action.payload));
 	}
 	else {
-		let standParams = {server_name: serverName, action_name: actionName};
-		let otherParams = omit(action, ['meta', 'type']);
-		return get(config.url.createPath(assign(standParams, otherParams)));
+		return get(config.url.createPath(params));
 	}
 }
 
 export default store => next => action => {
 	if (action.meta && action.meta.remote) {
-	    requestFromAction(action)
+		let params = assign({server_name: action.meta.serverName, action_name: camelcase(action.type)}, omit(action, ['meta', 'type']));
+
+	    requestFromAction(action, params)
 	    .then(data => {
-	    	let newAction = {
+	    	let newAction = assign({
 	    		type: action.type + '_SUCCESS',
-	    		response: JSON.parse(data)
-	    	}
+	    		response: JSON.parse(data),
+	    	}, params)
 	    	return next(newAction);
 	    }, e => {
 	    	let newAction = {

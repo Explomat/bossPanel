@@ -47,6 +47,10 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('css!sass')
             },
             {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader?name=images/[name].[ext]'
+            },
+            {
                 test: /\.jsx$/,
                 loaders: ['react-hot', 'babel-loader'],
                 include: path.join(__dirname, 'src')

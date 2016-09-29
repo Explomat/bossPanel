@@ -81,7 +81,9 @@ class App extends Component {
 
   render() {
     const { testsResultInfo, coursesResultInfo, children, fetching, error } = this.props;
-    const { selectTestsResultByPeriod, selectCoursesResultByPeriod, selectEventsPeriod, selectAdaptationPeriod, selectLibraryMaterialsPeriod } = this.props;
+    const { selectTestsResultByPeriod, selectCoursesResultByPeriod } = this.props;
+    const { selectedTestsPeriod, selectedCoursesPeriod } = this.props;
+    const { testsFetching, coursesFetching } = this.props;
     if (fetching) {
       return <h2>Loading...</h2>
     }
@@ -90,8 +92,18 @@ class App extends Component {
       <div>
         {error ? <h2>{error}</h2> : 
           <div>
-            <ChartBlock title="Тестирование" chartData={testsResultInfo} onSelectPeriod={selectTestsResultByPeriod}/>
-            <ChartBlock title="Курсы" chartData={coursesResultInfo} onSelectPeriod={selectCoursesResultByPeriod}/>
+            <ChartBlock 
+              title="Тестирование" 
+              chartData={testsResultInfo} 
+              selectedPeriod={selectedTestsPeriod} 
+              onSelectPeriod={selectTestsResultByPeriod}
+              fetching={testsFetching}/>
+            <ChartBlock 
+              title="Курсы" 
+              chartData={coursesResultInfo} 
+              selectedPeriod={selectedCoursesPeriod} 
+              onSelectPeriod={selectCoursesResultByPeriod}
+              fetching={coursesFetching}/>
           </div>
         }
         {children}
@@ -108,6 +120,10 @@ function mapStateToProps(state) {
   return {
     fetching: state.fetching,
     error: state.error,
+    selectedTestsPeriod: state.selectedTestsPeriod,
+    selectedCoursesPeriod: state.selectedCoursesPeriod,
+    testsFetching: state.testsFetching,
+    coursesFetching: state.coursesFetching,
     testsResultInfo: state.testsResultInfo,
     coursesResultInfo: state.coursesResultInfo
   }

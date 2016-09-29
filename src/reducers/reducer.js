@@ -21,29 +21,40 @@ function setSuccess(state, newState, errorKey, fetchingKey){
 	//return state.merge(newState).remove(errorKey).remove(fetchingKey);
 }
 
+function setDefaultPeriods(state){
+	return assign(state, {selectedTestsPeriod: 'month', selectedCoursesPeriod: 'month'});
+}
+
+function setTestsPeriod(state, period){
+	return assign(state, { selectedTestsPeriod: period });
+}
+
+function setCoursesPeriod(state, period){
+	return assign(state, { selectedCoursesPeriod: period });
+}
+
 export default function(state = {}, action) {
-	try {
 	switch (action.type) {
 		case constants.GET_STATE:
 			return getState(state);
 		case constants.GET_STATE_FAILURE:
 			return setFailure(state, action.error, 'error', 'fetching');
 		case constants.GET_STATE_SUCCESS:
-			return setSuccess(state, action.response, 'error', 'fetching');
+			return setDefaultPeriods(setSuccess(state, action.response, 'error', 'fetching'));
 
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD:
 			return assign({}, state, {testsFetching: true});
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'testsError', 'testsFetching');
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD_SUCCESS:
-			return setSuccess(state, action.response, 'testsError', 'testsFetching');
+			return setTestsPeriod(setSuccess(state, action.response, 'testsError', 'testsFetching'), action.period);
 
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD:
 			return assign({}, state, {coursesFetching: true});
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'coursesError', 'coursesFetching');
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD_SUCCESS:
-			return setSuccess(state, action.response, 'coursesError', 'coursesFetching');
+			return setCoursesPeriod(setSuccess(state, action.response, 'coursesError', 'coursesFetching'), action.period);
 
 		case constants.SELECT_EVENTS_PERIOD:
 			return assign({}, state, {eventsFetching: true});
@@ -65,7 +76,7 @@ export default function(state = {}, action) {
 			return setFailure(state, action.error, 'libraryMaterialsError', 'libraryMaterialsFetching');
 		case constants.SELECT_LIBRARY_MATERIALS_PERIOD_SUCCESS:
 			return setSuccess(state, action.response, 'libraryMaterialsError', 'libraryMaterialsFetching');
+		default:
+			return state;
 	}
-	}catch(e) {console.log(e)}
-	return state;
 }
