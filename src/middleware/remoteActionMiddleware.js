@@ -17,9 +17,11 @@ function requestFromAction(action, params, isCache){
 
 export default store => next => action => {
 	if (action.meta && action.meta.remote) {
-		let params = assign({server_name: action.meta.serverName, action_name: camelcase(action.type)}, omit(action, ['meta', 'type']));
+		const serverName = action.meta.serverName;
+		const isCache = action.meta.cache;
+		let params = assign({server_name: serverName, action_name: camelcase(action.type)}, omit(action, ['meta', 'type']));
 
-	    requestFromAction(action, params, action.meta.cache)
+	    requestFromAction(action, params, isCache)
 	    .then(data => {
 	    	let newAction = assign({
 	    		type: action.type + '_SUCCESS',
