@@ -85,11 +85,42 @@ class ChartBlock extends Component {
     var self = this;
 
     function renderChart(_chartData){
+      var canvas = self.refs.canvas;
+      var ctx = canvas.getContext("2d");
+      const total = self.getTotalFromCharts(_chartData);
+
+      function getTextHeight(text, fontSize){
+        var d = document.createElement("span");
+        d.style.fontSize = fontSize + 'px';
+        d.style.fontFamily = 'serif';
+        d.style.display = 'inline-block';
+        d.style.lineHeight = '0.7';
+        d.textContent = text;
+        document.body.appendChild(d);
+        var emHeight = d.offsetHeight;
+        document.body.removeChild(d);
+        return emHeight;
+      }
+
+      function drawText(text, fontSize){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = fontSize + "px serif";
+        ctx.fillStyle = "#ccc";
+        var width = ctx.measureText(text).width;
+        var height = getTextHeight(text, fontSize);
+        ctx.fillText(text, canvas.width / 2 - width / 2, canvas.height-(canvas.height / 2 - height / 2));
+      }
+
       if (self.chart){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         self.chart.destroy();
       }
+
+      if (total === 0){
+        drawText("0", 120);
+        return;
+      }
       
-      var ctx = self.refs.canvas.getContext("2d");
       var data = self._prepareChartData(_chartData);
       self.chart = new Chart(ctx, data);
     }
@@ -148,7 +179,7 @@ class ChartBlock extends Component {
     const loadingClasses = cx({
       'chart-block__loading': true,
       'chart-block__loading--display': fetching
-    })
+    });
     return (
       <div className="chart-block">
         <div className="chart-block__title">{title}</div>
