@@ -53,6 +53,10 @@ class ChartBlock extends Component {
   constructor(props){
     super(props);
 
+    this.handleSelectMonth = this.handleSelectMonth.bind(this);
+    this.handleSelectQuarter = this.handleSelectQuarter.bind(this);
+    this.handleSelectYear = this.handleSelectYear.bind(this);
+
     this.chartType = 'pie';
     this.chartColors = ['#FDB45C', '#46bf8b', '#F7464A'];
     this.chartOptions = {
@@ -174,6 +178,24 @@ class ChartBlock extends Component {
     })
   }
 
+  handleSelectMonth(payload){
+    if (this.props.selectedPeriod !== "month" && this.props.onSelectPeriod){
+      this.props.onSelectPeriod(payload);
+    }
+  }
+
+  handleSelectQuarter(payload){
+    if (this.props.selectedPeriod !== "quarter" && this.props.onSelectPeriod){
+      this.props.onSelectPeriod(payload);
+    }
+  }
+
+  handleSelectYear(payload){
+    if (this.props.selectedPeriod !== "year" && this.props.onSelectPeriod){
+      this.props.onSelectPeriod(payload);
+    }
+  }
+
   render() {
     const {title, fetching, selectedPeriod, chartData, onSelectPeriod} = this.props;
     const loadingClasses = cx({
@@ -184,9 +206,9 @@ class ChartBlock extends Component {
       <div className="chart-block">
         <div className="chart-block__title">{title}</div>
         <ButtonTabs className="chart-block__buttons">
-          <ButtonTab onClick={onSelectPeriod} payload='month' value='Месяц' selected={selectedPeriod === 'month'}></ButtonTab>
-          <ButtonTab onClick={onSelectPeriod} payload='quarter' value='Квартал' selected={selectedPeriod === 'quarter'}></ButtonTab>
-          <ButtonTab onClick={onSelectPeriod} payload='year' value='Год' selected={selectedPeriod === 'year'}></ButtonTab>
+          <ButtonTab onClick={this.handleSelectMonth} payload='month' value='Месяц' selected={selectedPeriod === 'month'}></ButtonTab>
+          <ButtonTab onClick={this.handleSelectQuarter} payload='quarter' value='Квартал' selected={selectedPeriod === 'quarter'}></ButtonTab>
+          <ButtonTab onClick={this.handleSelectYear} payload='year' value='Год' selected={selectedPeriod === 'year'}></ButtonTab>
         </ButtonTabs>
         <div className={loadingClasses}></div>
         <div className="chart-block__canvas-wrapper">

@@ -9,7 +9,7 @@ export function getState() {
 
 export function selectTestsResultByPeriod(payload) {
   return {
-    meta: { remote: true, serverName: 'Test' },
+    meta: { remote: true, cache: true, serverName: 'Test' },
     type: constants.SELECT_TESTS_RESULT_BY_PERIOD,
     period: payload
   }
@@ -17,7 +17,7 @@ export function selectTestsResultByPeriod(payload) {
 
 export function selectCoursesResultByPeriod(payload) {
   return {
-    meta: { remote: true, serverName: 'Test' },
+    meta: { remote: true, cache: true, serverName: 'Test' },
     type: constants.SELECT_COURSES_RESULT_BY_PERIOD,
     period: payload
   }
