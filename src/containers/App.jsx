@@ -1,86 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import ChartBlock from '../components/ChartBlock';
+import ChartBlock from '../components/chart/ChartBlock';
+import AdaptationBlock from '../components/adaptation/AdaptationBlock';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
-
-var chartData = {
-
-  tests: [
-    {
-      value: 5,
-      label: "Проигнорировано"
-    },
-    {
-      value: 2,
-      label: "Положительно"
-    },
-    {
-      value: 3,
-      label: "Отрицательно"
-    }
-  ],
-  courses: [
-    {
-      value: 3,
-      label: "Проигнорировано"
-    },
-    {
-      value: 1,
-      label: "Положительно"
-    },
-    {
-      value: 6,
-      label: "Отрицательно"
-    }
-  ],
-  events: [
-    {
-      value: 1,
-      label: "Проигнорировано"
-    },
-    {
-      value: 2,
-      label: "Положительно"
-    },
-    {
-      value: 7,
-      label: "Отрицательно"
-    }
-  ],
-  adaptation: [
-    {
-      value: 7,
-      label: "Проигнорировано"
-    },
-    {
-      value: 1,
-      label: "Положительно"
-    },
-    {
-      value: 2,
-      label: "Отрицательно"
-    }
-  ],
-  libraryMaterials: [
-    {
-      value: 7,
-      label: "Проигнорировано"
-    },
-    {
-      value: 1,
-      label: "Положительно"
-    },
-    {
-      value: 2,
-      label: "Отрицательно"
-    }
-  ]
-}
 
 class App extends Component {
 
   render() {
-    const { testsResultInfo, coursesResultInfo, children, fetching, error } = this.props;
+    const { testsResultInfo, coursesResultInfo, adaptResultInfo } = this.props;
+    const { children, fetching, error } = this.props;
     const { selectTestsResultByPeriod, selectCoursesResultByPeriod } = this.props;
     const { selectedTestsPeriod, selectedCoursesPeriod } = this.props;
     const { testsFetching, coursesFetching } = this.props;
@@ -104,6 +32,7 @@ class App extends Component {
               selectedPeriod={selectedCoursesPeriod} 
               onSelectPeriod={selectCoursesResultByPeriod}
               fetching={coursesFetching}/>
+            <AdaptationBlock data={adaptResultInfo}/>
           </div>
         }
         {children}
@@ -125,7 +54,8 @@ function mapStateToProps(state) {
     testsFetching: state.testsFetching,
     coursesFetching: state.coursesFetching,
     testsResultInfo: state.testsResultInfo,
-    coursesResultInfo: state.coursesResultInfo
+    coursesResultInfo: state.coursesResultInfo,
+    adaptResultInfo: state.adaptResultInfo
   }
 }
 

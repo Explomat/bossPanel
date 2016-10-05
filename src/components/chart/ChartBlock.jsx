@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import {ButtonTab, ButtonTabs} from './modules/button-tabs';
+import {ButtonTab, ButtonTabs} from '../modules/button-tabs';
 import Chart from 'chart.js';
 import difference from 'lodash/difference';
 import cx from 'classnames';
+
+import './chart-block.scss';
 
 var customTooltips = function(tooltip) {
 
@@ -190,7 +192,7 @@ class ChartBlock extends Component {
         </ButtonTabs>
         <div className={loadingClasses}></div>
         <div className="chart-block__canvas-wrapper">
-          <canvas ref="canvas" className="chart-block__canvas" width='150' height='150'/>
+          <canvas ref="canvas" className="chart-block__canvas" width='164' height='164'/>
           <div className="chart-block__canvas-tooltip"></div>
         </div>
         <div className="chart-block__description">

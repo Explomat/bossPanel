@@ -20,7 +20,7 @@
 
     	&.chart-block__loading--display {
     		opacity: 1;
-    		background-image: url(~../images/loading.gif);
+    		background-image: url(~../../../images/loading.gif);
 		    background-position: center center;
 		    background-repeat: no-repeat;
     	}
@@ -32,6 +32,7 @@
 
 	.chart-block__canvas-wrapper{
 		position: relative;
+		height: 164px;
 
 		.chart-block__canvas{
 			-moz-user-select: none;
