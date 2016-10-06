@@ -1,13 +1,13 @@
-.adaptation-block{
+.requests-block{
 	position: relative;
 	width: 965px;
 	height: 300px;
 
-	.adaptation-block__empty {
+	.requests-block__empty {
 		border: 1px solid #d3d3d3;
 		height: 100%;
 
-		.adaptation-block__empty-descr {
+		.requests-block__empty-descr {
 			position: absolute;
 		    top: 50%;
 		    left: 50%;
@@ -16,7 +16,7 @@
 		}
 	}
 
-	.adaptation-block__sort-cell{
+	.requests-block__sort-cell{
 		display: block;
 		padding: 8px;
 		cursor: pointer;

@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import ChartBlock from '../components/chart/ChartBlock';
 import AdaptationBlock from '../components/adaptation/AdaptationBlock';
+import RequestsBlock from '../components/requests/RequestsBlock';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 
 class App extends Component {
 
   render() {
-    const { testsResultInfo, coursesResultInfo, adaptResultInfo } = this.props;
+    const { testsResultInfo, coursesResultInfo, adaptResultInfo, requestsInfo } = this.props;
     const { children, fetching, error } = this.props;
     const { selectTestsResultByPeriod, selectCoursesResultByPeriod } = this.props;
     const { selectedTestsPeriod, selectedCoursesPeriod } = this.props;
@@ -33,6 +34,7 @@ class App extends Component {
               onSelectPeriod={selectCoursesResultByPeriod}
               fetching={coursesFetching}/>
             <AdaptationBlock data={adaptResultInfo}/>
+            <RequestsBlock data={requestsInfo} />
           </div>
         }
         {children}
@@ -55,7 +57,8 @@ function mapStateToProps(state) {
     coursesFetching: state.coursesFetching,
     testsResultInfo: state.testsResultInfo,
     coursesResultInfo: state.coursesResultInfo,
-    adaptResultInfo: state.adaptResultInfo
+    adaptResultInfo: state.adaptResultInfo,
+    requestsInfo: state.requestsInfo
   }
 }
 

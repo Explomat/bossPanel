@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {Table, Column, Cell} from 'fixed-data-table';
 
-import './adaptation-block.scss';
+import './requests-block.scss';
 
 class SortHeaderCell extends React.Component {
 
@@ -19,7 +19,7 @@ class SortHeaderCell extends React.Component {
     var {children, ...props} = this.props;
     return (
       <Cell width={this.props.width} height={this.props.height}>
-        <a className="adaptation-block__sort-cell" onClick={this._onSortChange}>
+        <a className="requests-block__sort-cell" onClick={this._onSortChange}>
           {children}
         </a>
       </Cell>
@@ -36,15 +36,7 @@ const TextCell = ({rowIndex, data, columnKey, ...props}) => {
 	);
 }
 
-const PercentCell = ({rowIndex, data, columnKey, ...props}) => {
-	return (
-		<Cell {...props}>
-		    {data[rowIndex][columnKey]} %
-		</Cell>
-	);
-}
-
-class AdaptationBlock extends Component {
+class RequestBlock extends Component {
 
 	constructor(props) {
 	    super(props);
@@ -60,10 +52,10 @@ class AdaptationBlock extends Component {
 		var {data} = this.props;
 
 		return (
-			<div className="adaptation-block">
+			<div className="requests-block">
 				{(!data || data.length === 0) ? 
-					<div className="adaptation-block__empty">
-						<span className="adaptation-block__empty-descr">Нет данных</span>
+					<div className="requests-block__empty">
+						<span className="requests-block__empty-descr">Нет данных</span>
 					</div>:
 					<Table
 				        rowsCount={data.length}
@@ -73,46 +65,46 @@ class AdaptationBlock extends Component {
 				        height={300}>
 				        <Column
 				        	columnKey="personFullname"
-							header={
+				        	header={
 					            <SortHeaderCell
 					              onSortChange={this._onSortChange}>
 					              ФИО
 					            </SortHeaderCell>
 					        }
 							cell={<TextCell data={data} />}
-							width={200}
-				        />
-				        <Column
-				        	columnKey="planReadinessDate"
-				        	header={
-					            <SortHeaderCell
-					              onSortChange={this._onSortChange}>
-					              Планируемая дата завершения
-					            </SortHeaderCell>
-					        }
-							cell={<TextCell data={data} />}
 							width={270}
 				        />
 				        <Column
-				        	columnKey="totalPercentComplete"
+				        	columnKey="code"
+							header={
+					            <SortHeaderCell
+					              onSortChange={this._onSortChange}>
+					              КОД
+					            </SortHeaderCell>
+					        }
+							cell={<TextCell data={data} />}
+							width={200}
+				        />
+				        <Column
+				        	columnKey="objectName"
 				        	header={
 					            <SortHeaderCell
 					              onSortChange={this._onSortChange}>
-					              Процент прохождения
+					              ХЗ
 					            </SortHeaderCell>
 					        }
-							cell={<PercentCell data={data} />}
+							cell={<TextCell data={data} />}
 							width={210}
 				        />
 				        <Column
-				        	columnKey="successPercentComplete"
+				        	columnKey="href"
 				        	header={
 					            <SortHeaderCell
 					              onSortChange={this._onSortChange}>
-					              Успешный процент прохождения
+					              Ссылка
 					            </SortHeaderCell>
 					        }
-							cell={<PercentCell data={data} />}
+							cell={<TextCell data={data} />}
 							width={285}
 				        />
 				    </Table>
@@ -122,4 +114,4 @@ class AdaptationBlock extends Component {
 	}
 }
 
-export default AdaptationBlock;
+export default RequestBlock;
