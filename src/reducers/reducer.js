@@ -25,8 +25,12 @@ function setSuccess(state, newState, errorKey, fetchingKey){
 	//return state.merge(newState).remove(errorKey).remove(fetchingKey);
 }
 
-function setDefaultPeriods(state){
-	return assign(state, {selectedTestsPeriod: 'month', selectedCoursesPeriod: 'month'});
+function setDefaultSettings(state){
+	return assign(state, {
+		selectedTab: 'tests',
+		selectedTestsPeriod: 'month', 
+		selectedCoursesPeriod: 'month'
+	});
 }
 
 function setTestsPeriod(state, period){
@@ -44,7 +48,10 @@ export default function(state = {}, action) {
 		case constants.GET_STATE_FAILURE:
 			return setFailure(state, action.error, 'error', 'fetching');
 		case constants.GET_STATE_SUCCESS:
-			return setDefaultPeriods(setSuccess(state, action.response, 'error', 'fetching'));
+			return setDefaultSettings(setSuccess(state, action.response, 'error', 'fetching'));
+
+		case constants.SELECT_TAB:
+			return assign({}, state, {selectedTab: action.tab});
 
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD:
 			return assign({}, state, {testsFetching: true});

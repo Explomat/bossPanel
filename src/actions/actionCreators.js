@@ -7,6 +7,13 @@ export function getState() {
   }
 }
 
+export function selectTab(tab){
+  return {
+    type: constants.SELECT_TAB,
+    tab
+  }
+}
+
 export function selectTestsResultByPeriod(payload) {
   return {
     meta: { remote: true, cache: true, serverName: 'Test' },

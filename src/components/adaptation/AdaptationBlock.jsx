@@ -57,16 +57,16 @@ class AdaptationBlock extends Component {
 	}
 
 	render(){
-		var {data} = this.props;
+		var {adaptResultInfo} = this.props;
 
 		return (
 			<div className="adaptation-block">
-				{(!data || data.length === 0) ? 
+				{(!adaptResultInfo || adaptResultInfo.length === 0) ? 
 					<div className="adaptation-block__empty">
 						<span className="adaptation-block__empty-descr">Нет данных</span>
 					</div>:
 					<Table
-				        rowsCount={data.length}
+				        rowsCount={adaptResultInfo.length}
 				        rowHeight={50}
 				        headerHeight={50}
 				        width={965}
@@ -79,7 +79,7 @@ class AdaptationBlock extends Component {
 					              ФИО
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={adaptResultInfo} />}
 							width={200}
 				        />
 				        <Column
@@ -90,7 +90,7 @@ class AdaptationBlock extends Component {
 					              Планируемая дата завершения
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={adaptResultInfo} />}
 							width={270}
 				        />
 				        <Column
@@ -101,7 +101,7 @@ class AdaptationBlock extends Component {
 					              Процент прохождения
 					            </SortHeaderCell>
 					        }
-							cell={<PercentCell data={data} />}
+							cell={<PercentCell data={adaptResultInfo} />}
 							width={210}
 				        />
 				        <Column
@@ -112,7 +112,7 @@ class AdaptationBlock extends Component {
 					              Успешный процент прохождения
 					            </SortHeaderCell>
 					        }
-							cell={<PercentCell data={data} />}
+							cell={<PercentCell data={adaptResultInfo} />}
 							width={285}
 				        />
 				    </Table>

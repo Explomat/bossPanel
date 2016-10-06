@@ -49,16 +49,16 @@ class RequestBlock extends Component {
 	}
 
 	render(){
-		var {data} = this.props;
+		var {requestsInfo} = this.props;
 
 		return (
 			<div className="requests-block">
-				{(!data || data.length === 0) ? 
+				{(!requestsInfo || requestsInfo.length === 0) ? 
 					<div className="requests-block__empty">
 						<span className="requests-block__empty-descr">Нет данных</span>
 					</div>:
 					<Table
-				        rowsCount={data.length}
+				        rowsCount={requestsInfo.length}
 				        rowHeight={50}
 				        headerHeight={50}
 				        width={965}
@@ -71,7 +71,7 @@ class RequestBlock extends Component {
 					              ФИО
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={requestsInfo} />}
 							width={270}
 				        />
 				        <Column
@@ -82,7 +82,7 @@ class RequestBlock extends Component {
 					              КОД
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={requestsInfo} />}
 							width={200}
 				        />
 				        <Column
@@ -93,7 +93,7 @@ class RequestBlock extends Component {
 					              ХЗ
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={requestsInfo} />}
 							width={210}
 				        />
 				        <Column
@@ -104,7 +104,7 @@ class RequestBlock extends Component {
 					              Ссылка
 					            </SortHeaderCell>
 					        }
-							cell={<TextCell data={data} />}
+							cell={<TextCell data={requestsInfo} />}
 							width={285}
 				        />
 				    </Table>
