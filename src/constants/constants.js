@@ -1,10 +1,6 @@
 import keyMirror from 'keyMirror';
 
 const constants = keyMirror({
-	GET_STATE: null,
-	GET_STATE_FAILURE: null,
-	GET_STATE_SUCCESS: null,
-
 	SELECT_TAB: null,
 
 	SELECT_TESTS_RESULT_BY_PERIOD: null,
@@ -34,10 +30,6 @@ const constants = keyMirror({
 	SELECT_REQUESTS_RESULT: null,
 	SELECT_REQUESTS_RESULT_FAILURE: null,
 	SELECT_REQUESTS_RESULT_SUCCESS: null,
-
-	SELECT_LIBRARY_MATERIALS_PERIOD: null,
-	SELECT_LIBRARY_MATERIALS_PERIOD_FAILURE: null,
-	SELECT_LIBRARY_MATERIALS_PERIOD_SUCCESS: null
 });
 
 export default constants;

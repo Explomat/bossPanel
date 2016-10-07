@@ -6,23 +6,15 @@ import * as actionCreators from '../actions/actionCreators';
 class Requests extends Component {
 
   render() {
-  	const { requestsFetching, requestsError } = this.props;
-  	if (requestsFetching){
-  		return <h2>Loading requests....</h2>
-  	}
     return (
-		requestsError ? 
-		<h2>{requestsError}</h2> :
-      	<RequestsBlock {...this.props}/>
+      <RequestsBlock {...this.props}/>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    requestsInfo: state.requestsInfo,
-    requestsFetching: state.requestsFetching,
-    requestsError: state.requestsError
+    requestsInfo: state.requestsInfo
   }
 }
 

@@ -1,12 +1,5 @@
 import constants from '../constants/constants';
 
-export function getState() {
-  return {
-    meta: { remote: true, serverName: 'Test' },
-    type: constants.GET_STATE
-  }
-}
-
 export function selectTab(tab){
   return {
     type: constants.SELECT_TAB,
@@ -73,12 +66,3 @@ export function selectAdaptationPeriod(payload) {
     period: payload
   }
 }
-
-export function selectLibraryMaterialsPeriod(payload) {
-  return {
-    meta: { remote: true, serverName: 'Test' },
-    type: constants.SELECT_LIBRARY_MATERIALS_PERIOD,
-    period: payload
-  }
-}
-

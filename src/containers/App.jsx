@@ -5,25 +5,6 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-  constructor(props){
-    super(props);
-    this._selectTab(props.location.pathname);
-    this.pathname = props.location.pathname;
-
-  }
-
-  componentWillReceiveProps(nextProps){
-    this._selectTab(nextProps.location.pathname);
-  }
-
-  _selectTab(pathname){
-    const {selectTab} = this.props;
-    if (pathname !== this.pathname){
-      this.pathname = pathname;
-      selectTab(pathname);
-    }
-  }
-
   render(){
     const { selectedTab, fetching, error, children } = this.props;
 

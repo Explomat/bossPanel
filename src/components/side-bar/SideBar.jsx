@@ -22,10 +22,10 @@ class SideBar extends React.Component {
 					<span>test</span>
 				</div>
 				<div className="side-bar__body">
-					<Link className={this._getTabClasses("/tests")} to="/tests">Тесты</Link>
-					<Link className={this._getTabClasses("/courses")} to="/courses">Курсы</Link>
-					<Link className={this._getTabClasses("/adaptation")} to="/adaptation">Адаптация</Link>
-					<Link className={this._getTabClasses("/requests")} to="/requests">Заявки</Link>
+					<Link className={this._getTabClasses("tests")} to="/tests">Тесты</Link>
+					<Link className={this._getTabClasses("courses")} to="/courses">Курсы</Link>
+					<Link className={this._getTabClasses("adaptation")} to="/adaptation">Адаптация</Link>
+					<Link className={this._getTabClasses("requests")} to="/requests">Заявки</Link>
 				</div>
 			</aside>
 		);

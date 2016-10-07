@@ -5,23 +5,14 @@ import * as actionCreators from '../actions/actionCreators';
 
 class Tests extends Component {
   render() {
-    const { testsFetching, testsError } = this.props;
-
-    if (testsFetching){
-      return <h2>Loading tests....</h2>
-    }
     return (
-      testsError ? 
-        <h2>{testsError}</h2> :
-        <TestsBlock {...this.props}/>
+       <TestsBlock {...this.props}/>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    testsFetching: state.testsFetching,
-    testsError: state.testsError,
     testsPeriodFetching: state.testsPeriodFetching,
     testsPeriodError: state.testsPeriodError,
     selectedTestsPeriod: state.selectedTestsPeriod,

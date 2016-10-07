@@ -14,10 +14,11 @@ class Courses extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedCoursesPeriod: state.selectedCoursesPeriod,
     coursesPeriodFetching: state.coursesPeriodFetching,
+    coursesPeriodError: state.coursesPeriodError,
+    selectedCoursesPeriod: state.selectedCoursesPeriod,
+
     coursesResultInfo: state.coursesResultInfo
   }
 }
-
 export default connect(mapStateToProps, actionCreators)(Courses)
