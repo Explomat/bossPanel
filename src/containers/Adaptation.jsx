@@ -6,15 +6,24 @@ import * as actionCreators from '../actions/actionCreators';
 class Adaptation extends Component {
 
   render() {
+    const {adaptationFetching, adaptationError} = this.props;
+
+    if (adaptationFetching){
+      return <h2>Loading adaptation....</h2>
+    }
     return (
-      <AdaptationBlock {...this.props}/>
+      adaptationError ? 
+        <h2>{adaptationError}</h2> :
+        <AdaptationBlock {...this.props}/>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    adaptResultInfo: state.adaptResultInfo
+    adaptResultInfo: state.adaptResultInfo,
+    adaptationFetching: state.adaptationFetching,
+    adaptationError: state.adaptationError
   }
 }
 

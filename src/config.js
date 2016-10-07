@@ -8,10 +8,13 @@ addServer({id: '6322023433485303550', name: 'Test'})
 	[
 		'getState',
 		'selectTestsResultByPeriod',
-		'selectCoursesResultByPeriod'
+		'selectCoursesResultByPeriod',
+		'selectTestsResult',
+		'selectCoursesResult',
+		'selectAdaptResult',
+		'selectRequestsResult'
 	]
 );
-
 
 var obj = {
 

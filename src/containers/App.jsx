@@ -7,21 +7,26 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    this.location = props.location.pathname;
+    this._selectTab(props.location.pathname);
+    this.pathname = props.location.pathname;
+
   }
 
   componentWillReceiveProps(nextProps){
-    const nextLocation = nextProps.location.pathname;
+    this._selectTab(nextProps.location.pathname);
+  }
+
+  _selectTab(pathname){
     const {selectTab} = this.props;
-    if (nextLocation !== this.location){
-      this.location = nextLocation;
-      selectTab(nextLocation);
+    if (pathname !== this.pathname){
+      this.pathname = pathname;
+      selectTab(pathname);
     }
   }
 
   render(){
-
     const { selectedTab, fetching, error, children } = this.props;
+
     return (
       <div className="boss-panel">
         <SideBar selectedTab={selectedTab}/>

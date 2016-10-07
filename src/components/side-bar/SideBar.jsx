@@ -5,11 +5,6 @@ import cx from 'classnames';
 import './side-bar.scss';
 
 class SideBar extends React.Component {
-	
-	constructor(props){
-		super(props);
-		this.handleSelectTab = this.handleSelectTab.bind(this);
-	}
 
 	_getTabClasses(tabName){
 		const {selectedTab} = this.props;
@@ -17,13 +12,6 @@ class SideBar extends React.Component {
 		return cx("side-bar__tab-label", {
 			"side-bar__tab-label--selected": selectedTab === tabName
 		});
-	} 
-
-	handleSelectTab(e){
-		var target = e.target;
-		if (this.props.onSelect) {
-			this.props.onSelect({ key: target.getAttribute('data-name'), value: target.innerText });
-		}
 	}
 
 	render(){

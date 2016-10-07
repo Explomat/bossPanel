@@ -4,7 +4,7 @@ import ChartBlock from '../chart/ChartBlock';
 class Tests extends Component {
 
   render() {
-    const { testsResultInfo, selectedTestsPeriod, selectTestsResultByPeriod, testsFetching } = this.props;
+    const { testsResultInfo, selectedTestsPeriod, selectTestsResultByPeriod, testsPeriodFetching } = this.props;
 
     return (
       <ChartBlock 
@@ -12,7 +12,7 @@ class Tests extends Component {
         chartData={testsResultInfo} 
         selectedPeriod={selectedTestsPeriod}
         onSelectPeriod={selectTestsResultByPeriod}
-        fetching={testsFetching}/>
+        fetching={testsPeriodFetching}/>
     )
   }
 }

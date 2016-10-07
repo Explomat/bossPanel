@@ -1,5 +1,5 @@
-const AJAX_TIME_OVER = 1500000;
-const CACHE_MAX_REQUESTS = 10;
+const AJAX_TIME_OVER = 15000;
+const CACHE_MAX_REQUESTS = 30;
 let cache = {};
 
 function getXmlHttp(){

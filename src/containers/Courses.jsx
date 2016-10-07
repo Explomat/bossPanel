@@ -15,7 +15,7 @@ class Courses extends Component {
 function mapStateToProps(state) {
   return {
     selectedCoursesPeriod: state.selectedCoursesPeriod,
-    coursesFetching: state.coursesFetching,
+    coursesPeriodFetching: state.coursesPeriodFetching,
     coursesResultInfo: state.coursesResultInfo
   }
 }

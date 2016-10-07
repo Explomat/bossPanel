@@ -14,19 +14,47 @@ export function selectTab(tab){
   }
 }
 
-export function selectTestsResultByPeriod(payload) {
+export function selectTestsResult() {
   return {
     meta: { remote: true, cache: true, serverName: 'Test' },
-    type: constants.SELECT_TESTS_RESULT_BY_PERIOD,
-    period: payload
+    type: constants.SELECT_TESTS_RESULT
   }
 }
 
-export function selectCoursesResultByPeriod(payload) {
+export function selectCoursesResult() {
+  return {
+    meta: { remote: true, cache: true, serverName: 'Test' },
+    type: constants.SELECT_COURSES_RESULT
+  }
+}
+
+export function selectTestsResultByPeriod(period) {
+  return {
+    meta: { remote: true, cache: true, serverName: 'Test' },
+    type: constants.SELECT_TESTS_RESULT_BY_PERIOD,
+    period
+  }
+}
+
+export function selectCoursesResultByPeriod(period) {
   return {
     meta: { remote: true, cache: true, serverName: 'Test' },
     type: constants.SELECT_COURSES_RESULT_BY_PERIOD,
-    period: payload
+    period
+  }
+}
+
+export function selectAdaptResult(){
+  return {
+    meta: { remote: true, cache: true, serverName: 'Test' },
+    type: constants.SELECT_ADAPT_RESULT
+  }
+}
+
+export function selectRequestsResult(){
+  return {
+    meta: { remote: true, cache: true, serverName: 'Test' },
+    type: constants.SELECT_REQUESTS_RESULT
   }
 }
 

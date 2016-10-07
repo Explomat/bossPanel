@@ -4,7 +4,7 @@ import ChartBlock from '../chart/ChartBlock';
 class Courses extends Component {
 
   render() {
-    const { coursesResultInfo, selectedCoursesPeriod, selectCoursesResultByPeriod, coursesFetching } = this.props;
+    const { coursesResultInfo, selectedCoursesPeriod, selectCoursesResultByPeriod, coursesPeriodFetching } = this.props;
 
     return (
       <ChartBlock 
@@ -12,7 +12,7 @@ class Courses extends Component {
         chartData={coursesResultInfo} 
         selectedPeriod={selectedCoursesPeriod} 
         onSelectPeriod={selectCoursesResultByPeriod}
-        fetching={coursesFetching}/>
+        fetching={coursesPeriodFetching}/>
     )
   }
 }
