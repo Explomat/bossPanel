@@ -12,7 +12,7 @@ class App extends Component {
       <div className="boss-panel">
         <SideBar selectedTab={selectedTab}/>
         <div className="boss-panel__container">
-          {fetching ? <h2>Loading...</h2> : 
+          {fetching ? <div className="overlay-loading overlay-loading--show"></div> : 
             error ? <h2>{error}</h2> : children
           }
         </div>
