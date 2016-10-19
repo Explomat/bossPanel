@@ -1,14 +1,24 @@
 .boss-panel {
-	height: 720px;
 
 	.boss-panel__container {
-		float: right;
+		padding: 16px;
 	    position: relative;
 	    box-sizing: border-box;
-	    width: calc(100% - 251px);
-	    margin-left: 16px;
 	    height: 100%;
 	    box-shadow: 2px 2px 10px 0 #979797;
 	    background-color: #fff;
+
+	    .boss-panel__block{
+	    	margin-bottom: 40px;
+
+	    	.boss-panel__description {
+	    		border-bottom: 1px solid #ccc;
+			    margin-bottom: 32px;
+			    padding-bottom: 8px;
+			    font-size: 32px;
+			    font-weight: bold;
+			    color: #333;
+	    	}
+	    }
 	}
 }

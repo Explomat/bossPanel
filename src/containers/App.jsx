@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import SideBar from '../components/side-bar/SideBar';
 import * as actionCreators from '../actions/actionCreators';
+
+import TestsBlock from '../components/tests/TestsBlock';
+import CoursesBlock from '../components/courses/CoursesBlock';
+import AdaptationBlock from '../components/adaptation/AdaptationBlock';
+import RequestsBlock from '../components/requests/RequestsBlock';
+
 import { connect } from 'react-redux';
 
 class App extends Component {
@@ -10,11 +15,21 @@ class App extends Component {
 
     return (
       <div className="boss-panel">
-        <SideBar selectedTab={selectedTab}/>
         <div className="boss-panel__container">
-          {fetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-            error ? <h2>{error}</h2> : children
-          }
+          <div className="boss-panel__block">
+            <div className="boss-panel__description">Тесты и курсы</div>
+            <TestsBlock {...this.props}/>
+            <CoursesBlock {...this.props}/>
+          </div>
+          <div className="boss-panel__block">
+            <div className="boss-panel__description">Адаптация</div>
+            <AdaptationBlock {...this.props}/>
+          </div>
+           <div className="boss-panel__block">
+            <div className="boss-panel__description">Заявки</div>
+            <RequestsBlock {...this.props}/>
+          </div>
+          {children}
         </div>
       </div>
     )
@@ -26,11 +41,7 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-  return {
-    selectedTab: state.selectedTab,
-    fetching: state.fetching,
-    error: state.error
-  }
+  return {...state};
 }
 
 export default connect(mapStateToProps, actionCreators)(App)

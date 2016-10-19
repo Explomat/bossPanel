@@ -1,0 +1,30 @@
+.search-box {
+    position: relative;
+
+    .search-box__search-input {
+        height: 32px;
+        line-height: 32px;
+        padding: 0px 15px 0px 30px;
+        border: 1px solid #B6B6B6;
+        background-color: #646464;
+        color: #fff;
+        border-radius: 1px;
+        outline: none;
+        font-size: inherit;
+    }
+    .search-box__search-icon {
+        position: absolute;
+        left: 8px;
+        color: #b6b6b6;
+        top: 50%;
+        transform:translateY(-50%);
+    }
+}
+
+
+    
+
+    
+
+
+

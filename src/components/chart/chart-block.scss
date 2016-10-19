@@ -1,9 +1,11 @@
 .chart-block{
 
+	position: absolute;
 	width: 164px;
     display: inline-block;
     box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.69);
     padding: 24px;
+    height: calc(100% - 48px);
 
     .chart-block__title{
     	margin-bottom: 16px;

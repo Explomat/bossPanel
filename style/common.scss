@@ -9,21 +9,69 @@
     display: none;
 
     &:before {
-    	content: "";
-	    position: absolute;
-	    background-image: url(../images/loading-circle.gif);
-	    background-position: center center;
-	    background-repeat: no-repeat;
-	    background-size: 100%;
-	    display: block;
-	    width: 32px;
-	    height: 32px;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
+        content: "";
+        position: absolute;
+        background-image: url(../images/loading-circle.gif);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        display: block;
+        width: 32px;
+        height: 32px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     &.overlay-loading--show {
-    	display: block;
+        display: block;
     }
+}
+
+.default-button {
+    display: inline-block;
+    padding: .5em;
+    background-image: linear-gradient(#fff, #ddd);
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+    outline: 0;
+    vertical-align: middle;
+
+    &:active {
+        background: linear-gradient(#ddd, #fff);
+    }
+}
+
+.close-button{
+    outline: 0;
+    margin-top: -2px;
+    padding: 0 0 0 8px;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+
+    &:focus, &:hover {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: .5;
+    }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }

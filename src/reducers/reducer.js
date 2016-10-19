@@ -1,81 +1,148 @@
 import constants from '../constants/constants';
-import merge from 'lodash/merge';
+import prepareTableState from '../utils/prepareTableState';
+import assign from 'lodash/assign';
+import orderBy from 'lodash/orderBy';
+
+function _sortTable(array, key, isAsc){
+	const ascending = isAsc === 'true' ? 'asc' : 'desc';
+	return orderBy(array, [key], [ascending]);
+}
 
 function setFailure(state, error, errorKey, fetchingKey){
-	let newState = merge({}, state, {[errorKey]: error});
+	let newState = assign({}, state, {[errorKey]: error});
 	delete newState[fetchingKey];
 	return newState;
 }
 
 function setSuccess(state, newState, errorKey, fetchingKey){
-	let _newState = merge({}, state, newState);
+	let _newState = assign({}, state, newState);
 	delete _newState[errorKey];
 	delete _newState[fetchingKey];
 	return _newState;
 }
 
 function setTestsPeriod(state, period){
-	return merge(state, { selectedTestsPeriod: period });
+	return assign(state, { selectedTestsPeriod: period });
 }
 
 function setCoursesPeriod(state, period){
-	return merge(state, { selectedCoursesPeriod: period });
+	return assign(state, { selectedCoursesPeriod: period });
+}
+
+function setAdaptDefaults(state){
+	let adaptResultInfo = state.adaptResultInfo;
+	let preparedState = prepareTableState(adaptResultInfo);
+	return assign({}, state, preparedState, { filteredAdaptResultInfo: preparedState });
+}
+
+function setRequestsDefaults(state){
+	let requestsInfo = state.requestsInfo;
+	let preparedState = prepareTableState(requestsInfo);
+	return assign({}, state, preparedState, { filteredRequestsInfo: preparedState });
+}
+
+
+function searchAdaptData(state, value){
+	let _adaptResultInfo = state.adaptResultInfo;
+	if (!_adaptResultInfo) return state;
+
+	value = value.toLowerCase();
+	let filteredAdaptResultInfo = _adaptResultInfo.filter(item => {
+		const name = item.personFullname.toLowerCase();
+		return ~name.indexOf(value);
+	});
+	return assign({}, state, {filteredAdaptResultInfo: filteredAdaptResultInfo});
+}
+
+function sortAdaptData(state, payload){
+
+	let filteredAdaptResultInfo = state.filteredAdaptResultInfo;
+	if (!filteredAdaptResultInfo) return state;
+
+	var data = JSON.parse(payload);
+	var newData = _sortTable(filteredAdaptResultInfo, data.key, data.isAsc);
+	return assign({}, state, {filteredAdaptResultInfo: newData});
+}
+
+function searchRequestsData(state, value){
+	let _requestsInfo = state.requestsInfo;
+	if (!_requestsInfo) return state;
+
+	value = value.toLowerCase();
+	let filteredRequestsInfo = _requestsInfo.filter(item => {
+		const name = item.personFullname.toLowerCase();
+		const code = item.code.toLowerCase();
+		const objectName = item.objectName.toLowerCase();
+		return (~name.indexOf(value) || ~code.indexOf(value) || ~objectName.indexOf(value));
+	});
+	return assign({}, state, {filteredRequestsInfo: filteredRequestsInfo});
+}
+
+function sortRequestsData(state, payload){
+
+	let filteredRequestsInfo = state.filteredRequestsInfo;
+	if (!filteredRequestsInfo) return state;
+
+	var data = JSON.parse(payload);
+	var newData = _sortTable(filteredRequestsInfo, data.key, data.isAsc);
+	return assign({}, state, {filteredRequestsInfo: newData});
 }
 
 export default function(state = {}, action) {
 	switch (action.type) {
 
 		case constants.SELECT_TAB:
-			return merge({}, state, { selectedTab: action.tab });
+			return assign({}, state, { selectedTab: action.tab });
 
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD:
-			return merge({}, state, { testsPeriodFetching: true });
+			return assign({}, state, { testsPeriodFetching: true });
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'testsPeriodError', 'testsPeriodFetching');
 		case constants.SELECT_TESTS_RESULT_BY_PERIOD_SUCCESS:
 			return setTestsPeriod(setSuccess(state, action.response, 'testsPeriodError', 'testsPeriodFetching'), action.period);
 
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD:
-			return merge({}, state, { coursesPeriodFetching: true });
+			return assign({}, state, { coursesPeriodFetching: true });
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD_FAILURE:
 			return setFailure(state, action.error, 'coursesPeriodError', 'coursesPeriodFetching');
 		case constants.SELECT_COURSES_RESULT_BY_PERIOD_SUCCESS:
 			return setCoursesPeriod(setSuccess(state, action.response, 'coursesPeriodError', 'coursesPeriodFetching'), action.period);
 
-		case constants.SELECT_EVENTS_PERIOD:
-			return merge({}, state, { eventsFetching: true });
-		case constants.SELECT_EVENTS_PERIOD_FAILURE:
-			return setFailure(state, action.error, 'eventsError', 'eventsFetching');
-		case constants.SELECT_EVENTS_PERIOD_SUCCESS:
-			return setSuccess(state, action.response, 'eventsError', 'eventsFetching');
-
 		case constants.SELECT_TESTS_RESULT:
-			return merge({}, state, { fetching: true, selectedTab: 'tests' });
+			return assign({}, state, { testsResultFetching: true });
 		case constants.SELECT_TESTS_RESULT_FAILURE:
-			return setFailure(state, action.error, 'error', 'fetching');
+			return setFailure(state, action.error, 'testsResultError', 'testsResultFetching');
 		case constants.SELECT_TESTS_RESULT_SUCCESS:
-			return setTestsPeriod(setSuccess(state, action.response, 'error', 'fetching'), 'month');
+			return setTestsPeriod(setSuccess(state, action.response, 'testsResultError', 'testsResultFetching'), 'month');
 
 		case constants.SELECT_COURSES_RESULT:
-			return merge({}, state, { fetching: true, selectedTab: 'courses' });
+			return assign({}, state, { coursesResultFetching: true });
 		case constants.SELECT_COURSES_RESULT_FAILURE:
-			return setFailure(state, action.error, 'error', 'fetching');
+			return setFailure(state, action.error, 'coursesResultError', 'coursesResultFetching');
 		case constants.SELECT_COURSES_RESULT_SUCCESS:
-			return setCoursesPeriod(setSuccess(state, action.response, 'error', 'fetching'), 'month');
+			return setCoursesPeriod(setSuccess(state, action.response, 'coursesResultError', 'coursesResultFetching'), 'month');
 
 		case constants.SELECT_ADAPT_RESULT:
-			return merge({}, state, { fetching: true, selectedTab: 'adaptation' });
+			return assign({}, state, { adaptResultFetching: true });
 		case constants.SELECT_ADAPT_RESULT_FAILURE:
-			return setFailure(state, action.error, 'error', 'fetching');
+			return setFailure(state, action.error, 'adaptResultError', 'adaptResultFetching');
 		case constants.SELECT_ADAPT_RESULT_SUCCESS:
-			return setSuccess(state, action.response, 'error', 'fetching');
+			return setAdaptDefaults(setSuccess(state, action.response, 'adaptResultError', 'adaptResultFetching'));
+		case constants.SEARCH_ADAPT_DATA:
+			return searchAdaptData(state, action.value);
+		case constants.SORT_ADAPT_DATA:
+			return sortAdaptData(state, action.payload);
 
 		case constants.SELECT_REQUESTS_RESULT:
-			return merge({}, state, { fetching: true, selectedTab: 'requests' });
+			return assign({}, state, { requestsResultFetching: true, selectedTab: 'requests' });
 		case constants.SELECT_REQUESTS_RESULT_FAILURE:
-			return setFailure(state, action.error, 'error', 'fetching');
+			return setFailure(state, action.error, 'requestsResultError', 'requestsResultFetching');
 		case constants.SELECT_REQUESTS_RESULT_SUCCESS:
-			return setSuccess(state, action.response, 'error', 'fetching');
+			return setRequestsDefaults(setSuccess(state, action.response, 'requestsResultError', 'requestsResultFetching'));
+		case constants.SEARCH_REQUESTS_DATA:
+			return searchRequestsData(state, action.value);
+		case constants.SORT_REQUESTS_DATA:
+			return sortRequestsData(state, action.payload);
 		default:
 			return state;
 	}

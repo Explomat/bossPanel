@@ -1,7 +1,7 @@
 .adaptation-block{
 	position: relative;
 	width: 965px;
-	height: 300px;
+	height: 342px;
 
 	.adaptation-block__empty {
 		border: 1px solid #d3d3d3;
@@ -16,9 +16,44 @@
 		}
 	}
 
-	.adaptation-block__sort-cell{
-		display: block;
-		padding: 8px;
-		cursor: pointer;
+	.adaptation-block__content {
+		.adaptation-block__searchbar {
+			margin-bottom: 8px;
+			display: inline-block;
+			
+			.adaptation-block__searchbar-input{
+				background-color: #fff;
+				color: #000;
+			}
+		}
+
+		.adaptation-block__count{
+			color: #b6b6b6;
+			margin-left: 8px;
+		}
+
+		.adaptation-block__sort {
+			margin-left: 16px;
+			float: right;
+		}
+
+		.adaptation-block__empty {
+			border: 1px solid #d3d3d3;
+			height: 100%;
+
+			.adaptation-block__empty-descr {
+				position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
+			    color: #ccc;
+			}
+		}
+
+		.adaptation-block__sort-cell{
+			display: block;
+			padding: 8px;
+			cursor: pointer;
+		}
 	}
 }

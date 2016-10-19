@@ -1,5 +1,12 @@
 import constants from '../constants/constants';
 
+export function getState(){
+  return {
+    meta: { remote: true, serverName: 'Test' },
+    type: 'GET_STATE'
+  }
+}
+
 export function selectTab(tab){
   return {
     type: constants.SELECT_TAB,
@@ -44,10 +51,38 @@ export function selectAdaptResult(){
   }
 }
 
+export function searchAdaptData(value){
+  return {
+    type: constants.SEARCH_ADAPT_DATA,
+    value
+  }
+}
+
+export function sortAdaptData(payload){
+  return {
+    type: constants.SORT_ADAPT_DATA,
+    payload
+  }
+}
+
 export function selectRequestsResult(){
   return {
     meta: { remote: true, cache: true, serverName: 'Test' },
     type: constants.SELECT_REQUESTS_RESULT
+  }
+}
+
+export function searchRequestsData(value){
+  return {
+    type: constants.SEARCH_ADAPT_DATA,
+    value
+  }
+}
+
+export function sortRequestsData(payload){
+  return {
+    type: constants.SORT_ADAPT_DATA,
+    payload
   }
 }
 

@@ -16,9 +16,30 @@
 		}
 	}
 
-	.requests-block__sort-cell{
-		display: block;
-		padding: 8px;
-		cursor: pointer;
+	.requests-block__content {
+		.requests-block__searchbar {
+			margin-bottom: 8px;
+			display: inline-block;
+			
+			.requests-block__searchbar-input{
+				background-color: #fff;
+				color: #000;
+			}
+		}
+
+		.requests-block__count{
+			color: #b6b6b6;
+			margin-left: 8px;
+		}
+
+		.requests-block__sort {
+			margin-left: 16px;
+			float: right;
+		}
+		.requests-block__sort-cell{
+			display: block;
+			padding: 8px;
+			cursor: pointer;
+		}
 	}
 }
