@@ -22,10 +22,9 @@ function isCacheOverflow(){
 function getCacheRequest(url){
     if (isCacheOverflow()) {
         cache = {};
-        return null;
+        return;
     }
-    else if (cache[url]) return cache[url];
-    return null;
+    return cache[url];
 }
 
 function sendRequest(url, data, isCache, requestType) {
