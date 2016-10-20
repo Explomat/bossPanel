@@ -87,7 +87,6 @@ class _DropDownIcon extends React.Component {
 			'dropdown-icon__list--display': this.state.display
 		}, this.props.classNameList);
 		const caretClassName = cx({
-			'caret': true,
 			'dropdown-icon__caret': true,
 			'dropdown-icon__caret--display': this._isChildren(this.props.children)
 		})

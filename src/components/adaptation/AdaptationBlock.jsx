@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import SearchBar from '../modules/search-bar';
 import {AlertDanger} from '../modules/alert';
 import { DropDownIcon, DropDownIconItem } from '../modules/dropdown-icon';
+import DropDown from '../modules/dropdown';
 import {Table, Column, Cell} from 'fixed-data-table';
+import {payload as adaptationPayload}  from '../../utils/adaptationBlockStatuses';
 
 import './adaptation-block.scss';
 
@@ -58,6 +60,13 @@ const PercentCell = ({rowIndex, data, columnKey, ...props}) => {
 
 class AdaptationBlock extends Component {
 
+	handleChangeStatus(e, payload){
+		const searchValue = this.refs.searchBar.getValue();
+		if (this.props.changeAdaptStatus){
+			this.props.changeAdaptStatus(payload, searchValue);
+		}
+	}
+
 	handleSort(e, payload){
 		if (this.props.sortAdaptData){
 			this.props.sortAdaptData(payload);
@@ -66,7 +75,7 @@ class AdaptationBlock extends Component {
 
 	render(){
 		const { adaptResultFetching, adaptResultError, searchAdaptData } = this.props;
-		var {adaptResultInfo, filteredAdaptResultInfo} = this.props;
+		var {adaptResultInfo, filteredAdaptResultInfo, selectedAdaptStatus} = this.props;
 
 		return (
 			<div className="adaptation-block">
@@ -77,8 +86,9 @@ class AdaptationBlock extends Component {
 								<span className="adaptation-block__empty-descr">Нет данных</span>
 							</div>:
 							<div className="adaptation-block__content">
-								<SearchBar onSearch={searchAdaptData} className="adaptation-block__searchbar" classNameInput="adaptation-block__searchbar-input"/>
+								<SearchBar ref="searchBar" onSearch={searchAdaptData} className="adaptation-block__searchbar" classNameInput="adaptation-block__searchbar-input"/>
 								<span className="adaptation-block__count">{filteredAdaptResultInfo.length}</span>
+								
 								<DropDownIcon
 										icon={<i className="icon-arrow-combo"></i>} 
 										className="adaptation-block__sort default-button">
@@ -91,6 +101,7 @@ class AdaptationBlock extends Component {
 											<DropDownIconItem onClick={::this.handleSort} payload='{"key": "successPercentComplete", "isAsc": "true"}' text='Сортировать по успешному проценту прохождения(по возрастанию)'/>
 											<DropDownIconItem onClick={::this.handleSort} payload='{"key": "successPercentComplete", "isAsc": "false"}' text='Сортировать по успешному проценту прохождения(по убыванию)'/>
 								</DropDownIcon>
+								<DropDown onChange={::this.handleChangeStatus} items={adaptationPayload} selectedPayload={selectedAdaptStatus} className="adaptation-block__statuses"/>
 								<Table
 							        rowsCount={filteredAdaptResultInfo.length}
 							        rowHeight={50}

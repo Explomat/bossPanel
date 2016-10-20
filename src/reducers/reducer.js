@@ -1,5 +1,6 @@
 import constants from '../constants/constants';
 import prepareTableState from '../utils/prepareTableState';
+import {keys as adaptationKeys}  from '../utils/adaptationBlockStatuses';
 import assign from 'lodash/assign';
 import orderBy from 'lodash/orderBy';
 
@@ -32,7 +33,7 @@ function setCoursesPeriod(state, period){
 function setAdaptDefaults(state){
 	let adaptResultInfo = state.adaptResultInfo;
 	let preparedState = prepareTableState(adaptResultInfo);
-	return assign({}, state, { adaptResultInfo: preparedState, filteredAdaptResultInfo: preparedState });
+	return assign({}, state, { adaptResultInfo: preparedState, filteredAdaptResultInfo: preparedState, selectedAdaptStatus: adaptationKeys.all });
 }
 
 function setRequestsDefaults(state){
@@ -44,10 +45,18 @@ function setRequestsDefaults(state){
 
 function searchAdaptData(state, value){
 	let _adaptResultInfo = state.adaptResultInfo;
+	let status = state.selectedAdaptStatus;
 	if (!_adaptResultInfo) return state;
 
+	let filteredStatusAdaptResultInfo = _adaptResultInfo;
+	if (status !== adaptationKeys.all) {
+		filteredStatusAdaptResultInfo = _adaptResultInfo.filter(item => {
+			return item.status === status;
+		});
+	}
+
 	value = value.toLowerCase();
-	let filteredAdaptResultInfo = _adaptResultInfo.filter(item => {
+	let filteredAdaptResultInfo = filteredStatusAdaptResultInfo.filter(item => {
 		const name = item.personFullname.toLowerCase();
 		return ~name.indexOf(value);
 	});
@@ -62,6 +71,26 @@ function sortAdaptData(state, payload){
 	var data = JSON.parse(payload);
 	var newData = _sortTable(filteredAdaptResultInfo, data.key, data.isAsc);
 	return assign({}, state, {filteredAdaptResultInfo: newData});
+}
+
+function changeAdaptStatus(state, status, searchValue){
+	let _adaptResultInfo = state.adaptResultInfo;
+	if (!_adaptResultInfo) return state;
+
+	const value = searchValue.toLowerCase();
+	let filteredAdaptResultInfo = _adaptResultInfo.filter(item => {
+		const name = item.personFullname.toLowerCase();
+		return ~name.indexOf(value);
+	});
+
+	let filteredStatusAdaptResultInfo = filteredAdaptResultInfo;
+	if (status !== adaptationKeys.all) {
+		filteredStatusAdaptResultInfo = filteredAdaptResultInfo.filter(item => {
+			return item.status === status;
+		});
+	}
+
+	return assign({}, state, {selectedAdaptStatus: status, filteredAdaptResultInfo: filteredStatusAdaptResultInfo});
 }
 
 function searchRequestsData(state, value){
@@ -132,6 +161,8 @@ export default function(state = {}, action) {
 			return searchAdaptData(state, action.value);
 		case constants.SORT_ADAPT_DATA:
 			return sortAdaptData(state, action.payload);
+		case constants.CHANGE_ADAPT_STATUS:
+			return changeAdaptStatus(state, action.status, action.searchValue);
 
 		case constants.SELECT_REQUESTS_RESULT:
 			return assign({}, state, { requestsResultFetching: true, selectedTab: 'requests' });

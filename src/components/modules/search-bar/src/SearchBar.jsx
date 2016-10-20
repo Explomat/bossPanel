@@ -16,8 +16,14 @@ var SearchBar = React.createClass({
 		}
 	},
 
+	getValue(){
+		return this.state.value;
+	},
+
 	componentWillReceiveProps(nextProps){
-		this.setState({value: nextProps.value});
+		if (nextProps.value){
+			this.setState({value: nextProps.value});
+		}
 	},
 
 	handleChange(e){

@@ -2,7 +2,6 @@
 	position: relative;
     display: inline-block;
     vertical-align: middle;
-    width: 100%;
     font-size: inherit;
 
     .dropdown-box__default-item {
@@ -11,16 +10,14 @@
         border: none;
         background-color: #fff;
         border-bottom: 1px solid #B6B6B6;
-        line-height: 32px;
+        line-height: 27px;
         padding-left: 0px;
         text-align: left;
         outline: none !important;
-        width: 100%;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         font-size: inherit;
-        
     }
 
     .dropdown-list {
@@ -104,9 +101,24 @@
     }
 
     .dropdown-box__caret {
-        position: absolute;
+        margin-left: 24px;
+        display: none;
+
+        width: 0;
+        height: 0;
+        vertical-align: middle;
+        border-top: 4px dashed;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        transition: all 0.3s ease-out 0.02s;
+        color: #444;
+
+        &.dropdown-box__caret--display{
+            display: inline-block;
+        }
+        /* position: absolute;
         right: 0;
         top: calc(50% - 2px);
-        color: #444;
+        color: #B6B6B6; */
     }
 }

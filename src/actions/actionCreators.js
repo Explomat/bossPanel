@@ -58,6 +58,14 @@ export function searchAdaptData(value){
   }
 }
 
+export function changeAdaptStatus(status, searchValue){
+  return {
+    type: constants.CHANGE_ADAPT_STATUS,
+    status,
+    searchValue
+  }
+}
+
 export function sortAdaptData(payload){
   return {
     type: constants.SORT_ADAPT_DATA,

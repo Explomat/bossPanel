@@ -55,7 +55,7 @@ function sendRequest(url, data, isCache, requestType) {
             }
             else {
                 console.log(xmlHttp.status);
-                reject(xmlHttp.statusText || "Ajax request error");
+                reject(new Error(xmlHttp.statusText || "Ajax request error"));
             }
           }
         };
@@ -63,7 +63,7 @@ function sendRequest(url, data, isCache, requestType) {
 
         var timeout = setTimeout( function(){ 
             xmlHttp.abort();
-            reject("Ajax request time over");
+            reject(new Error("Ajax request time over"));
         }, AJAX_TIME_OVER);
     }.bind(this));
 
@@ -96,7 +96,7 @@ export function uploadFile(url, file){
             }
             else {
                 console.log(xmlHttp.status);
-                reject(xmlHttp.statusText || "Upload file error");
+                reject(new Error(xmlHttp.statusText || "Upload file error"));
             }
           }
         };
@@ -123,7 +123,7 @@ export function uploadFiles(url, files) {
             }
             else {
                 console.log(xmlHttp.status);
-                reject(xmlHttp.statusText || "Upload file error");
+                reject(new Error(xmlHttp.statusText || "Upload file error"));
             }
           }
         };
