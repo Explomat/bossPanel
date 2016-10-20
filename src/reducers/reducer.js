@@ -32,13 +32,13 @@ function setCoursesPeriod(state, period){
 function setAdaptDefaults(state){
 	let adaptResultInfo = state.adaptResultInfo;
 	let preparedState = prepareTableState(adaptResultInfo);
-	return assign({}, state, preparedState, { filteredAdaptResultInfo: preparedState });
+	return assign({}, state, { adaptResultInfo: preparedState, filteredAdaptResultInfo: preparedState });
 }
 
 function setRequestsDefaults(state){
 	let requestsInfo = state.requestsInfo;
 	let preparedState = prepareTableState(requestsInfo);
-	return assign({}, state, preparedState, { filteredRequestsInfo: preparedState });
+	return assign({}, state, { requestsInfo: preparedState, filteredRequestsInfo: preparedState });
 }
 
 

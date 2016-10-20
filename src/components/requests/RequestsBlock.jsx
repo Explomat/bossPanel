@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SearchBar from '../modules/search-bar';
+import {AlertDanger} from '../modules/alert';
 import { DropDownIcon, DropDownIconItem } from '../modules/dropdown-icon';
 import {Table, Column, Cell} from 'fixed-data-table';
 
@@ -48,13 +49,13 @@ class RequestBlock extends Component {
 
 	render(){
 		const { requestsResultFetching, requestsResultError, searchRequestsData } = this.props;
-		var {filteredRequestsInfo} = this.props;
+		var {requestsInfo, filteredRequestsInfo} = this.props;
 
 		return (
 			<div className="requests-block">
 				{requestsResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          			requestsResultError ? <h2>{requestsResultError}</h2> : 
-						(!filteredRequestsInfo || filteredRequestsInfo.length === 0) ? 
+          			requestsResultError ? <AlertDanger text={requestsResultError} /> :
+						(requestsInfo && requestsInfo.length === 0) ? 
 							<div className="requests-block__empty">
 								<span className="requests-block__empty-descr">Нет данных</span>
 							</div>:

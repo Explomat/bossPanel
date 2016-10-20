@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SearchBar from '../modules/search-bar';
+import {AlertDanger} from '../modules/alert';
 import { DropDownIcon, DropDownIconItem } from '../modules/dropdown-icon';
 import {Table, Column, Cell} from 'fixed-data-table';
 
@@ -65,13 +66,13 @@ class AdaptationBlock extends Component {
 
 	render(){
 		const { adaptResultFetching, adaptResultError, searchAdaptData } = this.props;
-		var {filteredAdaptResultInfo} = this.props;
+		var {adaptResultInfo, filteredAdaptResultInfo} = this.props;
 
 		return (
 			<div className="adaptation-block">
 				{adaptResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          			adaptResultError ? <h2>{adaptResultError}</h2> : 
-						(!filteredAdaptResultInfo || filteredAdaptResultInfo.length === 0) ? 
+          			adaptResultError ? <AlertDanger text={adaptResultError} /> : 
+						(adaptResultInfo && adaptResultInfo.length === 0) ? 
 							<div className="adaptation-block__empty">
 								<span className="adaptation-block__empty-descr">Нет данных</span>
 							</div>:

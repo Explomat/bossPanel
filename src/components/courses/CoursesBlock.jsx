@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChartBlock from '../chart/ChartBlock';
+import {AlertDanger} from '../modules/alert';
 
 import './courses-block.scss';
 
@@ -12,7 +13,7 @@ class CoursesBlock extends Component {
     return (
       <div className="courses-block">
         {coursesResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          coursesResultError ? <h2>{coursesResultError}</h2> : 
+          coursesResultError ? <AlertDanger text={coursesResultError}/> : 
             (<ChartBlock 
               title="Курсы" 
               chartData={coursesResultInfo} 
