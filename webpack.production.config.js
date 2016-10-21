@@ -4,20 +4,17 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        main: './js/main',
+        main: './src/index',
         react: ['react']
     },
     devtool: 'source-map',
     output: {
-        path: path.join(__dirname, 'build'),
-        publicPath: '/build/',
-        filename: 'js/bundle.js',
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/',
+        filename: 'bundle.js',
         library: '[name]'   
     },
     resolve: {
-        root: [
-            path.resolve(__dirname, 'js'),
-        ],
         modulesDirectories: ['node_modules'],
         extensions: ['', '.js', '.jsx'],
     },
@@ -50,15 +47,18 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('css!sass')
             },
             {
+                test: /\.(png|jpg|gif)$/,
+                loader: 'url-loader?name=images/[name].[ext]'
+            },
+            {
                 test: /\.jsx$/,
                 loaders: ['react-hot', 'babel-loader'],
-                include: path.join(__dirname, 'js/components')
+                include: path.join(__dirname, 'src')
             },
             {
                 test: /\.js$/,
                 loader: 'babel',
-                include: path.join(__dirname, 'js'),
-                exclude: path.join(__dirname, 'js/components')
+                include: path.join(__dirname, 'src'),
             }
         ]
     },
@@ -67,7 +67,7 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'react',
-            filename: 'js/react.js'
+            filename: 'react.js'
         }),
         new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),

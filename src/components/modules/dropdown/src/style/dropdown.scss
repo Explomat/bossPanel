@@ -1,7 +1,8 @@
 .dropdown-box {
-	position: relative;
+    position: relative;
     display: inline-block;
     vertical-align: middle;
+    width: 100%;
     font-size: inherit;
 
     .dropdown-box__default-item {
@@ -10,14 +11,16 @@
         border: none;
         background-color: #fff;
         border-bottom: 1px solid #B6B6B6;
-        line-height: 27px;
+        line-height: 29px;
         padding-left: 0px;
         text-align: left;
         outline: none !important;
+        width: 100%;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         font-size: inherit;
+        
     }
 
     .dropdown-list {
@@ -56,7 +59,7 @@
             padding: 3px 20px;
             cursor: pointer;
             white-space: nowrap;
-            line-height: 32px;
+            line-height: 27px;
 
             &:hover {
                 background-color: #E6F4FA;
@@ -101,6 +104,9 @@
     }
 
     .dropdown-box__caret {
+        position: absolute;
+        right: 0;
+        top: calc(50% - 2px);
         margin-left: 24px;
         display: none;
 
@@ -116,9 +122,6 @@
         &.dropdown-box__caret--display{
             display: inline-block;
         }
-        /* position: absolute;
-        right: 0;
-        top: calc(50% - 2px);
-        color: #B6B6B6; */
     }
 }
+

@@ -77,7 +77,7 @@ function changeAdaptStatus(state, status, searchValue){
 	let _adaptResultInfo = state.adaptResultInfo;
 	if (!_adaptResultInfo) return state;
 
-	const value = searchValue.toLowerCase();
+	const value = searchValue ? searchValue.toLowerCase() : '';
 	let filteredAdaptResultInfo = _adaptResultInfo.filter(item => {
 		const name = item.personFullname.toLowerCase();
 		return ~name.indexOf(value);

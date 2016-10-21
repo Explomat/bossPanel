@@ -12,7 +12,7 @@ var SearchBar = React.createClass({
 
 	getInitialState(){
 		return {
-			value: this.props.value
+			value: this.props.value || ''
 		}
 	},
 

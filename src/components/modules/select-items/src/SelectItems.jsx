@@ -3,7 +3,7 @@ import SelectedItems from './SelectedItems';
 import Items from './Items';
 import Filters from './Filters';
 import Ajax from '../../../../utils/Ajax';
-import {some} from 'lodash';
+import some from 'lodash/some';
 import cx from 'classnames';
 import './style/select-items.scss';
 

@@ -2,7 +2,8 @@ import {get, post} from '../utils/ajax';
 import actionStatuses from '../utils/actionStatuses';
 import camelcase from 'camelcase';
 import config from '../config';
-import {assign, omit} from 'lodash';
+import assign from 'lodash/assign';
+import omit from 'lodash/omit';
 
 function requestFromAction(action, params, isCache){
 	const httpType = action.meta.httpType;

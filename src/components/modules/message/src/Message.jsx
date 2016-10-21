@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextView, TextAreaView} from '../../text-label';
-import {find, filter} from 'lodash';
+import find from 'lodash/find';
+import filter from 'lodash/filter';
 import cx from 'classnames';
 
 import './style/message.scss';

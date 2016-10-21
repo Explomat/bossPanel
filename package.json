@@ -5,8 +5,8 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/testHelper.js  --recursive",
     "test:watch": "npm run test -- --watch",
-    "development": "webpack --config webpack.config.js",
-    "production": "webpack --config webpack.production.config.js"
+    "development": "set NODE_ENV=development && webpack --config webpack.config.js",
+    "production": "set NODE_ENV=production && webpack --config webpack.production.config.js"
   },
   "dependencies": {
     "camelcase": "^3.0.0",

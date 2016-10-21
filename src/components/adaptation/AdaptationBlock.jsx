@@ -86,7 +86,11 @@ class AdaptationBlock extends Component {
 								<span className="adaptation-block__empty-descr">Нет данных</span>
 							</div>:
 							<div className="adaptation-block__content">
-								<SearchBar ref="searchBar" onSearch={searchAdaptData} className="adaptation-block__searchbar" classNameInput="adaptation-block__searchbar-input"/>
+								<SearchBar 
+									ref="searchBar" 
+									onSearch={searchAdaptData} 
+									className="adaptation-block__searchbar" 
+									classNameInput="adaptation-block__searchbar-input"/>
 								<span className="adaptation-block__count">{filteredAdaptResultInfo.length}</span>
 								
 								<DropDownIcon
@@ -101,7 +105,12 @@ class AdaptationBlock extends Component {
 											<DropDownIconItem onClick={::this.handleSort} payload='{"key": "successPercentComplete", "isAsc": "true"}' text='Сортировать по успешному проценту прохождения(по возрастанию)'/>
 											<DropDownIconItem onClick={::this.handleSort} payload='{"key": "successPercentComplete", "isAsc": "false"}' text='Сортировать по успешному проценту прохождения(по убыванию)'/>
 								</DropDownIcon>
-								<DropDown onChange={::this.handleChangeStatus} items={adaptationPayload} selectedPayload={selectedAdaptStatus} className="adaptation-block__statuses"/>
+								<DropDown 
+									onChange={::this.handleChangeStatus} 
+									items={adaptationPayload} 
+									selectedPayload={selectedAdaptStatus} 
+									deviders={[1]} 
+									className="adaptation-block__statuses"/>
 								<Table
 							        rowsCount={filteredAdaptResultInfo.length}
 							        rowHeight={50}
