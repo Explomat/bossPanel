@@ -9,13 +9,14 @@ import './chart-block.scss';
 var customTooltips = function(tooltip) {
 
   // Tooltip Element
-  var tooltipEl = document.getElementsByClassName('chart-block__canvas-tooltip')[0];
+  var tooltipEl = this.refs.canvasTooltip;
   
   if (!tooltip.opacity){
     tooltipEl.style.opacity = 0;
     return;
   }
-  this._chart.canvas.style.cursor = 'pointer';
+  let canvas = this.chart.chart.canvas;
+  canvas.style.cursor = 'pointer';
 
   // Set Text
   if (tooltip.body) {
@@ -31,24 +32,24 @@ var customTooltips = function(tooltip) {
   var top = 0;
   if (tooltip.yAlign) {
     if (tooltip.yAlign == 'above') {
-      top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
+      top = tooltip.y - tooltip.caretSize - tooltip.caretPadding;
     } else {
-      top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
+      top = tooltip.y  + tooltip.caretSize + tooltip.caretPadding;
     }
   }
 
-  var position = this._chart.canvas.getBoundingClientRect();
+  var position = canvas.getBoundingClientRect();
 
   // Display, position, and set styles for font
   tooltipEl.style.opacity = 1;
   tooltipEl.style.width = tooltip.width ? (tooltip.width + 'px') : 'auto';
-  tooltipEl.style.left = position.left + tooltip.x + 'px';
-  tooltipEl.style.top = position.top + top + 'px';
+  tooltipEl.style.left = tooltip.x + 'px';
+  tooltipEl.style.top = top + 'px';
   tooltipEl.style.fontFamily = tooltip._fontFamily;
   tooltipEl.style.fontSize = tooltip.fontSize;
   tooltipEl.style.fontStyle = tooltip._fontStyle;
   tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
-};
+}
 
 class ChartBlock extends Component {
 
@@ -66,7 +67,7 @@ class ChartBlock extends Component {
       },
       tooltips: {
         enabled: false,
-        custom: customTooltips
+        custom: customTooltips.bind(this)
       }
     }
   }
@@ -171,8 +172,12 @@ class ChartBlock extends Component {
   }
 
   getMarkupFromCharts(chartData){
+    let self = this;
     return chartData.map((ch, index) => {
-      return <div key={index}>{ch.label}: {ch.value}</div>
+      return (<div key={index}>
+              <span>{ch.label}: </span> 
+              <span style={{color: self.chartColors[index]}}>{ch.value}</span> 
+            </div>)
     })
   }
 
@@ -193,10 +198,13 @@ class ChartBlock extends Component {
         <div className={loadingClasses}></div>
         <div className="chart-block__canvas-wrapper">
           <canvas ref="canvas" className="chart-block__canvas" width='164' height='164'/>
-          <div className="chart-block__canvas-tooltip"></div>
+          <div ref="canvasTooltip" className="chart-block__canvas-tooltip"></div>
         </div>
         <div className="chart-block__description">
-          <div>Всего: {this.getTotalFromCharts(chartData)}</div>
+          <div className="chart-block__total">
+            <span>Всего: </span>
+            <span className="chart-block__total-count">{this.getTotalFromCharts(chartData)}</span>
+          </div>
           {this.getMarkupFromCharts(chartData)}
         </div>
       </div>
