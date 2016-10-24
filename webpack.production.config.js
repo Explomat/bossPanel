@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require ('extract-text-webpack-plugin');
 var path = require('path');
+//console.log(process.env.NODE_ENV)
 
 module.exports = {
     entry: {
