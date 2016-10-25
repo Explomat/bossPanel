@@ -41,10 +41,14 @@ var TextBase = {
 
 	componentDidMount: function(){
 		if (this.props.focused){
-			var inpt = this.refs.inpt;
-			inpt.selectionStart = inpt.selectionEnd = inpt.value.length;
-			inpt.focus();
+			this.focus();
 		}
+	},
+
+	focus(){
+		var inpt = this.refs.inpt;
+		inpt.selectionStart = inpt.selectionEnd = inpt.value.length;
+		inpt.focus();
 	},
 
 	handleChange: function(e) {

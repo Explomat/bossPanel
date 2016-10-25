@@ -34,6 +34,12 @@ export class DropDownIconItem extends React.Component {
 
 class _DropDownIcon extends React.Component {
 
+	constructor(props){
+		super(props);
+
+		this.isRightBoundOverflow = false; //заезжает ли за правую границу экрана
+	}
+
 	static propTypes = {
 		//icons: React.PropTypes.array, //Количество такое же как и items. Payload должен совпадать с payload item. [ payload: 1, iconClass: icon-class ]
 		icon: React.PropTypes.any,
@@ -57,6 +63,17 @@ class _DropDownIcon extends React.Component {
     	return {
     		onToggle: ::this.handleToggleDisplay
     	};
+  	}
+
+  	componentDidMount(){
+  		this.isRightBoundOverflow = this._isRightBoundOverflow();
+  	}
+
+  	_isRightBoundOverflow(){ 
+  		let list = this.refs.list;
+  		let rightBound = list.getBoundingClientRect().right;
+  		const windowWidth = window.innerWidth;
+  		return rightBound >= windowWidth;
   	}
 
   	_isChildren(children){
@@ -84,7 +101,8 @@ class _DropDownIcon extends React.Component {
 		const className = cx('dropdown-icon', this.props.className);
 		const classNameList = cx({
 			'dropdown-icon__list': true,
-			'dropdown-icon__list--display': this.state.display
+			'dropdown-icon__list--display': this.state.display,
+			'dropdown-icon__list--display-right': this.state.display && this._isRightBoundOverflow
 		}, this.props.classNameList);
 		const caretClassName = cx({
 			'dropdown-icon__caret': true,
@@ -93,11 +111,11 @@ class _DropDownIcon extends React.Component {
 		return (
 			<div className={className}>
 				<div className="dropdown-icon__button" type="button" onClick={::this.handleToggleDisplay}>
-					<span className="dropdown-icon__icon">{this.props.icon}</span>
+					{this.props.icon}
 					<span className={caretClassName}></span>
 				</div>
 				<div className="dropdown-icon__list-container">
-					<ul className={classNameList}>
+					<ul ref="list" className={classNameList}>
 						{this.props.children}
 					</ul>
 				</div>

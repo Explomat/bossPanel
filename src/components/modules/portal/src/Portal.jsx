@@ -4,19 +4,28 @@ import ReactDOM from 'react-dom';
 class Portal extends Component {
   
   static propTypes = {
-  	node: PropTypes.any,
-  	className: PropTypes.string
+    node: PropTypes.any,
+    nodeId: PropTypes.string,
+    nodeClass: PropTypes.string,
+    className: PropTypes.string
   };
   
   constructor(props) {
     super(props);
+  }
 
-    if (props.node){
-    	this.node = props.node;
+  componentDidMount(){
+    let {node, nodeId, nodeClass} = this.props;
+    let nodeById = document.getElementById(nodeId);
+    let nodeByClass = document.getElementsByClassName(nodeClass)[0];
+
+    let newNode = node ? node : nodeId ? nodeById : nodeClass ? nodeByClass : null;
+    if (newNode){
+      this.node = newNode;
     }
     else {
-    	this.node = document.createElement('div');
-    	document.body.appendChild(this.node);
+      this.node = document.createElement('div');
+      document.body.appendChild(this.node);
     }
   }
   
@@ -25,7 +34,7 @@ class Portal extends Component {
   }
   
   componentDidUpdate() {
-  	let newObj = { children: this.props.children, className: this.props.className }
+    let newObj = { children: this.props.children, className: this.props.className }
     ReactDOM.render(
       <div
         {...newObj}
