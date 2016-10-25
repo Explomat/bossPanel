@@ -93,7 +93,7 @@ class _DropDownIcon extends React.Component {
 		return (
 			<div className={className}>
 				<div className="dropdown-icon__button" type="button" onClick={::this.handleToggleDisplay}>
-					{this.props.icon}
+					<span className="dropdown-icon__icon">{this.props.icon}</span>
 					<span className={caretClassName}></span>
 				</div>
 				<div className="dropdown-icon__list-container">

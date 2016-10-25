@@ -19,6 +19,13 @@
     .dropdown-icon__button{
         width: 100%;
         height: inherit;
+
+        .dropdown-icon__icon{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 5px;
+        }
     }
 
     .dropdown-icon__list-container {
@@ -77,17 +84,17 @@
     }
 
     .dropdown-icon__caret {
-        margin-left: 24px;
         display: none;
-
         width: 0;
         height: 0;
-        vertical-align: middle;
         border-top: 4px dashed;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
-        transition: all 0.3s ease-out 0.02s;
         color: #444;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
 
         &.dropdown-icon__caret--display{
             display: inline-block;

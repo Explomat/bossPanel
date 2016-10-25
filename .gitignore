@@ -1,3 +1,5 @@
 node_modules/
-dist/
+dist/style
+dist/fonts
+dist/**/*.js
 npm-debug.log
