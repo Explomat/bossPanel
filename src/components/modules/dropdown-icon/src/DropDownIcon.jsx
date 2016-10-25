@@ -69,11 +69,14 @@ class _DropDownIcon extends React.Component {
   		this.isRightBoundOverflow = this._isRightBoundOverflow();
   	}
 
-  	_isRightBoundOverflow(){ 
+  	_isRightBoundOverflow(){
+  		let listContainer = this.refs.listContainer; 
   		let list = this.refs.list;
-  		let rightBound = list.getBoundingClientRect().right;
+
+  		let listContainerLeftBound = listContainer.getBoundingClientRect().left;
+  		const listWidth = list.offsetWidth;
   		const windowWidth = window.innerWidth;
-  		return rightBound >= windowWidth;
+  		return listContainerLeftBound + listWidth >= windowWidth;
   	}
 
   	_isChildren(children){
@@ -102,7 +105,7 @@ class _DropDownIcon extends React.Component {
 		const classNameList = cx({
 			'dropdown-icon__list': true,
 			'dropdown-icon__list--display': this.state.display,
-			'dropdown-icon__list--display-right': this.state.display && this._isRightBoundOverflow
+			'dropdown-icon__list--display-right': this.state.display && this.isRightBoundOverflow
 		}, this.props.classNameList);
 		const caretClassName = cx({
 			'dropdown-icon__caret': true,
@@ -114,7 +117,7 @@ class _DropDownIcon extends React.Component {
 					{this.props.icon}
 					<span className={caretClassName}></span>
 				</div>
-				<div className="dropdown-icon__list-container">
+				<div ref="listContainer" className="dropdown-icon__list-container">
 					<ul ref="list" className={classNameList}>
 						{this.props.children}
 					</ul>
