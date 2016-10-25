@@ -48,10 +48,6 @@ var obj = {
 
 	hashes: {
 		calendar: 'calendar'
-	},
-
-	setProductionMode() {
-		process.env.NODE_ENV = 'production';
 	}
 }
 

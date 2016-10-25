@@ -1,5 +1,4 @@
 node_modules/
-dist/style
-dist/fonts
-dist/**/*.js
+dist/*
+!dist/pindex.html
 npm-debug.log
