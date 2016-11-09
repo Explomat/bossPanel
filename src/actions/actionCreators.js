@@ -1,9 +1,9 @@
 import constants from '../constants/constants';
 
-export function getState(){
+export function getAccess(){
   return {
     meta: { remote: true, serverName: 'Test' },
-    type: 'GET_STATE'
+    type: 'GET_ACCESS'
   }
 }
 

@@ -1,6 +1,7 @@
 import keyMirror from 'keyMirror';
 
 const constants = keyMirror({
+	GET_ACCESS: null,
 	SELECT_TAB: null,
 
 	SELECT_TESTS_RESULT_BY_PERIOD: null,

@@ -6,7 +6,7 @@ import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducers/reducer';
-import {getState, selectTestsResult, selectCoursesResult, selectAdaptResult, selectRequestsResult} from './actions/actionCreators';
+import {getAccess, selectTestsResult, selectCoursesResult, selectAdaptResult, selectRequestsResult} from './actions/actionCreators';
 import remoteActionMiddleware from './middleware/remoteActionMiddleware';
 import App from './containers/App';
 import Tests from './containers/Tests';
@@ -24,6 +24,7 @@ function getInitialState(){
 	store.dispatch(selectCoursesResult());
 	store.dispatch(selectAdaptResult());
 	store.dispatch(selectRequestsResult());
+	//store.dispatch(getAccess());
 }
 
 const routes = <Route path="/" component={App} onEnter={getInitialState} />;

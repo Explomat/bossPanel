@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 class App extends Component {
 
   render(){
+    let dispatch = this.props.dispatch;
     const { selectedTab, fetching, error, children } = this.props;
 
     return (
