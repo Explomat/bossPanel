@@ -20,14 +20,14 @@ const store = createStoreWithMiddleware(reducer);
 
 function getInitialState(){
 	//store.dispatch(getState());
-	store.dispatch(selectTestsResult());
+	/*store.dispatch(selectTestsResult());
 	store.dispatch(selectCoursesResult());
 	store.dispatch(selectAdaptResult());
-	store.dispatch(selectRequestsResult());
-	//store.dispatch(getAccess());
+	store.dispatch(selectRequestsResult());*/
+	store.dispatch(getAccess());
 }
 
-const routes = <Route path="/" component={App} onEnter={getInitialState} />;
+const routes = <Route path="/" component={App} onEnter={getInitialState}/>;
 
 ReactDOM.render(
 	<Provider store={store}>

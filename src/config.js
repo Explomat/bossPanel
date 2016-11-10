@@ -7,7 +7,7 @@ const customBaseUrl = env === 'production' ? '/custom_web_template.html' : 'http
 addServer({id: '6322023433485303550', name: 'Test'})
 .addActions(
 	[
-		'getState',
+		'getAccess',
 		'selectTestsResultByPeriod',
 		'selectCoursesResultByPeriod',
 		'selectTestsResult',

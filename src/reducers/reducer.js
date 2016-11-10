@@ -120,6 +120,13 @@ function sortRequestsData(state, payload){
 export default function(state = {}, action) {
 	switch (action.type) {
 
+		case constants.GET_ACCESS:
+			return assign({}, state, { accessFetching: true });
+		case constants.GET_ACCESS_FAILURE:
+			return setFailure(state, action.error, 'accessError', 'accessFetching');
+		case constants.GET_ACCESS_SUCCESS:
+			return setSuccess(state, action.response, 'accessError', 'accessFetching');
+
 		case constants.SELECT_TAB:
 			return assign({}, state, { selectedTab: action.tab });
 

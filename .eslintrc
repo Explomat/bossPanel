@@ -10,7 +10,8 @@
   ],
   "globals": {
       "Promise": true,
-      "ActiveXObject": true
+      "ActiveXObject": true,
+      "isNAN": true
   },
   "rules": {
     "no-debugger": 0,
