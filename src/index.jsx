@@ -5,29 +5,27 @@ import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './reducers/reducer';
-import {getAccess, selectTestsResult, selectCoursesResult, selectAdaptResult, selectRequestsResult} from './actions/actionCreators';
-import remoteActionMiddleware from './middleware/remoteActionMiddleware';
+import reducers from './reducers';
+import {loadTests, loadCourses, loadAdaptation, loadRequests} from './actions';
+import thunk from 'redux-thunk';
+//import remoteActionMiddleware from './middleware/remoteActionMiddleware';
 import App from './containers/App';
-import Tests from './containers/Tests';
-import Courses from './containers/Courses';
-import Adaptation from './containers/Adaptation';
-import Requests from './containers/Requests';
 import config from './config';
 
-const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware)(createStore);
-const store = createStoreWithMiddleware(reducer);
+const store = createStore(
+  reducers,
+  applyMiddleware(thunk)
+);
 
-function getInitialState(){
-	//store.dispatch(getState());
-	store.dispatch(selectTestsResult());
-	store.dispatch(selectCoursesResult());
-	store.dispatch(selectAdaptResult());
-	store.dispatch(selectRequestsResult());
-	//store.dispatch(getAccess());
-}
+/*const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const store = createStoreWithMiddleware(reducers);*/
 
-const routes = <Route path="/" component={App} onEnter={getInitialState}/>;
+store.dispatch(loadTests('month'));
+store.dispatch(loadCourses('month'));
+store.dispatch(loadAdaptation());
+store.dispatch(loadRequests())
+
+const routes = <Route path="/" component={App}/>;
 
 ReactDOM.render(
 	<Provider store={store}>

@@ -48,13 +48,13 @@ class RequestBlock extends Component {
 	}
 
 	render(){
-		const { requestsResultFetching, requestsResultError, searchRequestsData } = this.props;
-		var {requestsInfo, filteredRequestsInfo} = this.props;
+		const { isFetching, error } = this.props;
+		var {requestsInfo, searchRequestsData, filteredRequestsInfo} = this.props;
 
 		return (
 			<div className="requests-block">
-				{requestsResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          			requestsResultError ? <AlertDanger text={requestsResultError} /> :
+				{isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
+          			error ? <AlertDanger text={error} /> :
 						(requestsInfo && requestsInfo.length === 0) ? 
 							<div className="requests-block__empty">
 								<span className="requests-block__empty-descr">Нет данных</span>

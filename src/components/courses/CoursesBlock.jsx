@@ -7,19 +7,19 @@ import './courses-block.scss';
 class CoursesBlock extends Component {
 
   render() {
-    const { coursesResultFetching, coursesResultError } = this.props;
-    const { coursesResultInfo, selectedCoursesPeriod, selectCoursesResultByPeriod, coursesPeriodFetching } = this.props;
+    const { isFetching, isFetchingByPeriod, error } = this.props;
+    const { coursesResultInfo, period, loadCoursesByPeriod} = this.props;
 
     return (
       <div className="courses-block">
-        {coursesResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          coursesResultError ? <AlertDanger text={coursesResultError}/> : 
+        {isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
+          error ? <AlertDanger text={error}/> : 
             (<ChartBlock 
               title="Курсы" 
               chartData={coursesResultInfo} 
-              selectedPeriod={selectedCoursesPeriod} 
-              onSelectPeriod={selectCoursesResultByPeriod}
-              fetching={coursesPeriodFetching}/>)
+              selectedPeriod={period}
+              onSelectPeriod={loadCoursesByPeriod}
+              fetching={isFetchingByPeriod}/>)
         }
       </div>
     )

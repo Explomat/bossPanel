@@ -74,13 +74,13 @@ class AdaptationBlock extends Component {
 	}
 
 	render(){
-		const { adaptResultFetching, adaptResultError, searchAdaptData } = this.props;
-		var {adaptResultInfo, filteredAdaptResultInfo, selectedAdaptStatus} = this.props;
+		const { isFetching, error } = this.props;
+		var {adaptResultInfo, searchAdaptData, filteredAdaptResultInfo, selectedAdaptStatus} = this.props;
 
 		return (
 			<div className="adaptation-block">
-				{adaptResultFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
-          			adaptResultError ? <AlertDanger text={adaptResultError} /> : 
+				{isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
+          			error ? <AlertDanger text={error} /> : 
 						(adaptResultInfo && adaptResultInfo.length === 0) ? 
 							<div className="adaptation-block__empty">
 								<span className="adaptation-block__empty-descr">Нет данных</span>

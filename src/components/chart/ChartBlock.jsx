@@ -167,6 +167,9 @@ class ChartBlock extends Component {
   }
 
   getTotalFromCharts(chartData){
+    if (chartData && chartData.length === 0){
+      return 0;
+    }
     return chartData.map(ch => Number(ch.value))
                     .reduce((first, second) => (first + second));
   }

@@ -7,20 +7,20 @@ import './tests-block.scss';
 class TestsBlock extends Component {
 
   render() {
-    const { testsResultFetching, testsResultError } = this.props;
-    const { testsResultInfo, selectedTestsPeriod, selectTestsResultByPeriod, testsPeriodFetching } = this.props;
+    const { isFetching, isFetchingByPeriod, error } = this.props;
+    const { testsResultInfo, period, loadTestsByPeriod } = this.props;
 
     return (
       <div className="tests-block">
-        {testsResultFetching ? 
+        {isFetching ? 
           <div className="overlay-loading overlay-loading--show"></div> : 
-          testsResultError ? <AlertDanger text={testsResultError} /> : 
+          error ? <AlertDanger text={error} /> : 
           (<ChartBlock 
             title="Тестирование" 
             chartData={testsResultInfo} 
-            selectedPeriod={selectedTestsPeriod}
-            onSelectPeriod={selectTestsResultByPeriod}
-            fetching={testsPeriodFetching}/>)
+            selectedPeriod={period}
+            onSelectPeriod={loadTestsByPeriod}
+            fetching={isFetchingByPeriod}/>)
         }
       </div>
     )
