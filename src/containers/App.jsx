@@ -12,10 +12,6 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-  componentDidMount(){
-    console.log(1);
-  }
-
   getBlocksMarkup(){
     return ([
       <div className="boss-panel__block">
@@ -40,12 +36,19 @@ class App extends Component {
     return (
       <div className="boss-panel">
         <div className="boss-panel__container">
-          {accessFetching ? 
-            <div className="overlay-loading overlay-loading--show"></div> : 
-            accessError ? <AlertDanger text={accessError} /> : 
-            access ? this.getBlocksMarkup() : <h1>error</h1>
-          }
-          {children}
+          <div className="boss-panel__block">
+            <div className="boss-panel__description">Тесты и курсы</div>
+            <TestsBlock {...this.props}/>
+            <CoursesBlock {...this.props}/>
+          </div>,
+          <div className="boss-panel__block">
+            <div className="boss-panel__description">Адаптация</div>
+            <AdaptationBlock {...this.props}/>
+          </div>,
+          <div className="boss-panel__block">
+            <div className="boss-panel__description">Заявки</div>
+            <RequestsBlock {...this.props}/>
+          </div>
         </div>
       </div>
     )
@@ -61,9 +64,9 @@ function mapStateToProps(state) {
   return {...state};
 }
 
-function mapDispatchToProps(dispatch) {
+/*function mapDispatchToProps(dispatch) {
   let actions = bindActionCreators(actionCreators, dispatch);
   return { ...actions, dispatch };
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, actionCreators)(App)

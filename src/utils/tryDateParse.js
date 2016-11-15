@@ -3,7 +3,7 @@ export default function tryDateParse(date){
 		return '';
 	}
 	let _date = Date.parse(date);
-	if (!isNAN(_date)){
+	if (!isNaN(_date)){
 		return new Date(_date);
 	}
 	return '';

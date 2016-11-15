@@ -1,7 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require ('extract-text-webpack-plugin');
 var path = require('path');
-//console.log(process.env.NODE_ENV)
 
 module.exports = {
     entry: {
@@ -72,11 +71,6 @@ module.exports = {
         }),
         new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
-        new webpack.DefinePlugin({
-          "process.env": { 
-             NODE_ENV: JSON.stringify("production") 
-           }
-        }),
         new webpack.optimize.UglifyJsPlugin({ mangle: false })
     ]
 }
