@@ -59,19 +59,19 @@ class RequestBlock extends Component {
 
 	render(){
 		const { isFetching, error } = this.props;
-		var {requestsInfo, searchRequestsData, filteredRequestsInfo} = this.props;
+		var {requestsInfo, count, searchRequestsData} = this.props;
 
 		return (
 			<div className="requests-block">
 				{isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
           		error ? <AlertDanger text={error} /> :
-				(requestsInfo && requestsInfo.length === 0) ? 
+				(count !== 0) ? 
 					<div className="requests-block__empty">
 						<span className="requests-block__empty-descr">Нет данных</span>
 					</div>:
 					<div className="requests-block__content">
 						<SearchBar onSearch={searchRequestsData} className="requests-block__searchbar" classNameInput="requests-block__searchbar-input"/>
-						<span className="requests-block__count">{filteredRequestsInfo.length}</span>
+						<span className="requests-block__count">{requestsInfo.length}</span>
 						<DropDownIcon
 								icon={<i className="icon-arrow-combo"></i>} 
 								className="requests-block__sort default-button">
@@ -83,7 +83,7 @@ class RequestBlock extends Component {
 									<DropDownIconItem onClick={::this.handleSort} payload='{"key": "objectName", "isAsc": "false"}' text='Сортировать по объекту(по убыванию)'/>
 						</DropDownIcon>
 						<Table
-					        rowsCount={filteredRequestsInfo.length}
+					        rowsCount={requestsInfo.length}
 					        rowHeight={50}
 					        headerHeight={50}
 					        width={965}
@@ -96,8 +96,8 @@ class RequestBlock extends Component {
 						              ФИО
 						            </SortHeaderCell>
 						        }
-								cell={<ObjectCell data={filteredRequestsInfo} />}
-								width={270}
+								cell={<ObjectCell data={requestsInfo} />}
+								width={400}
 					        />
 					        <Column
 					        	columnKey="code"
@@ -107,7 +107,7 @@ class RequestBlock extends Component {
 						              КОД
 						            </SortHeaderCell>
 						        }
-								cell={<TextCell data={filteredRequestsInfo} />}
+								cell={<TextCell data={requestsInfo} />}
 								width={200}
 					        />
 					        <Column
@@ -118,8 +118,8 @@ class RequestBlock extends Component {
 						              Объект
 						            </SortHeaderCell>
 						        }
-								cell={<TextCell data={filteredRequestsInfo} />}
-								width={210}
+								cell={<TextCell data={requestsInfo} />}
+								width={365}
 					        />
 					    </Table>
 					</div>

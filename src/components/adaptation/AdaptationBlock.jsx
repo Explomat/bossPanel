@@ -76,13 +76,13 @@ class AdaptationBlock extends Component {
 
 	render(){
 		const { isFetching, error } = this.props;
-		var {adaptResultInfo, searchAdaptData, filteredAdaptResultInfo, selectedAdaptStatus} = this.props;
+		var {adaptResultInfo, count, searchAdaptData, status} = this.props;
 
 		return (
 			<div className="adaptation-block">
 				{isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
           			error ? <AlertDanger text={error} /> : 
-						(adaptResultInfo && adaptResultInfo.length === 0) ? 
+						(count === 0) ? 
 							<div className="adaptation-block__empty">
 								<span className="adaptation-block__empty-descr">Нет данных</span>
 							</div>:
@@ -92,7 +92,7 @@ class AdaptationBlock extends Component {
 									onSearch={searchAdaptData} 
 									className="adaptation-block__searchbar" 
 									classNameInput="adaptation-block__searchbar-input"/>
-								<span className="adaptation-block__count">{filteredAdaptResultInfo.length}</span>
+								<span className="adaptation-block__count">{adaptResultInfo.length}</span>
 								
 								<DropDownIcon
 										icon={<i className="icon-arrow-combo"></i>} 
@@ -109,11 +109,11 @@ class AdaptationBlock extends Component {
 								<DropDown 
 									onChange={::this.handleChangeStatus} 
 									items={adaptationPayload} 
-									selectedPayload={selectedAdaptStatus} 
+									selectedPayload={status} 
 									deviders={[1]} 
 									className="adaptation-block__statuses"/>
 								<Table
-							        rowsCount={filteredAdaptResultInfo.length}
+							        rowsCount={adaptResultInfo.length}
 							        rowHeight={50}
 							        headerHeight={50}
 							        width={965}
@@ -126,8 +126,8 @@ class AdaptationBlock extends Component {
 								              ФИО
 								            </SortHeaderCell>
 								        }
-										cell={<ObjectCell data={filteredAdaptResultInfo} />}
-										width={200}
+										cell={<ObjectCell data={adaptResultInfo} />}
+										width={400}
 							        />
 							        <Column
 							        	columnKey="planReadinessDate"
@@ -137,8 +137,8 @@ class AdaptationBlock extends Component {
 								              Планируемая дата завершения
 								            </SortHeaderCell>
 								        }
-										cell={<DateCell data={filteredAdaptResultInfo} />}
-										width={270}
+										cell={<DateCell data={adaptResultInfo} />}
+										width={185}
 							        />
 							        <Column
 							        	columnKey="totalPercentComplete"
@@ -148,8 +148,8 @@ class AdaptationBlock extends Component {
 								              Процент прохождения
 								            </SortHeaderCell>
 								        }
-										cell={<PercentCell data={filteredAdaptResultInfo} />}
-										width={210}
+										cell={<PercentCell data={adaptResultInfo} />}
+										width={195}
 							        />
 							        <Column
 							        	columnKey="successPercentComplete"
@@ -159,8 +159,8 @@ class AdaptationBlock extends Component {
 								              Успешный процент прохождения
 								            </SortHeaderCell>
 								        }
-										cell={<PercentCell data={filteredAdaptResultInfo} />}
-										width={285}
+										cell={<PercentCell data={adaptResultInfo} />}
+										width={185}
 							        />
 							    </Table>
 							</div>

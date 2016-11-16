@@ -8,11 +8,12 @@ import assign from 'lodash/assign';
 function setAdaptDefaults(state){
 	let adaptResultInfo = state.adaptResultInfo;
 	let preparedState = prepareTableState(adaptResultInfo);
-	return assign({}, state, { adaptResultInfo: preparedState, filteredAdaptResultInfo: preparedState, selectedAdaptStatus: adaptationKeys.all });
+	//return assign({}, state, { adaptResultInfo: preparedState, filteredAdaptResultInfo: preparedState, selectedAdaptStatus: adaptationKeys.all });
+	return assign({}, state, { adaptResultInfo: preparedState });
 }
 
 function searchAdaptData(state, value){
-	let _adaptResultInfo = state.adaptResultInfo;
+	/*let _adaptResultInfo = state.adaptResultInfo;
 	let status = state.selectedAdaptStatus;
 	if (!_adaptResultInfo) return state;
 
@@ -28,21 +29,22 @@ function searchAdaptData(state, value){
 		const name = item.personFullname.toLowerCase();
 		return ~name.indexOf(value);
 	});
-	return assign({}, state, {filteredAdaptResultInfo: filteredAdaptResultInfo});
+	return assign({}, state, {filteredAdaptResultInfo: filteredAdaptResultInfo});*/
+	return assign({}, state, {searchValue: value});
 }
 
 function sortAdaptData(state, payload){
 
-	let filteredAdaptResultInfo = state.filteredAdaptResultInfo;
-	if (!filteredAdaptResultInfo) return state;
+	let adaptResultInfo = state.adaptResultInfo;
+	if (!adaptResultInfo) return state;
 
 	var data = JSON.parse(payload);
-	var newData = sortTable(filteredAdaptResultInfo, data.key, data.isAsc);
-	return assign({}, state, {filteredAdaptResultInfo: newData});
+	var newData = sortTable(adaptResultInfo, data.key, data.isAsc);
+	return assign({}, state, {adaptResultInfo: newData});
 }
 
 function changeAdaptStatus(state, status, searchValue){
-	let _adaptResultInfo = state.adaptResultInfo;
+	/*let _adaptResultInfo = state.adaptResultInfo;
 	if (!_adaptResultInfo) return state;
 
 	const value = searchValue ? searchValue.toLowerCase() : '';
@@ -58,16 +60,16 @@ function changeAdaptStatus(state, status, searchValue){
 		});
 	}
 
-	return assign({}, state, {selectedAdaptStatus: status, filteredAdaptResultInfo: filteredStatusAdaptResultInfo});
+	return assign({}, state, {selectedAdaptStatus: status, filteredAdaptResultInfo: filteredStatusAdaptResultInfo});*/
+	return assign({}, state, {status: status});
 }
 
 export default function adaptResultInfo(state = {
 	adaptResultInfo: [],
-	filteredAdaptResultInfo: [],
 	error: null,
 	isFetching: true,
-	selectedAdaptStatus: adaptationKeys.all
-
+	status: adaptationKeys.all,
+	searchValue: ''
 }, action) {
 	switch (action.type) {
 		case constants.SELECT_ADAPT_RESULT:
