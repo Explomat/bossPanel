@@ -65,7 +65,7 @@ export default function adaptResultInfo(state = {
 	adaptResultInfo: [],
 	filteredAdaptResultInfo: [],
 	error: null,
-	isFetching: false,
+	isFetching: true,
 	selectedAdaptStatus: adaptationKeys.all
 
 }, action) {

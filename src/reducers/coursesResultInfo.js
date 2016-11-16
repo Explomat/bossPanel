@@ -10,7 +10,7 @@ export default function coursesResultInfo(state = {
 	coursesResultInfo: [],
 	error: null,
 	errorByPeriod: null,
-	isFetching: false,
+	isFetching: true,
 	isFetchingByPeriod: false,
 	period: 'month'
 }, action) {

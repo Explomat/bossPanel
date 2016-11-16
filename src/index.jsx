@@ -6,7 +6,7 @@ import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from './reducers';
-import {loadTests, loadCourses, loadAdaptation, loadRequests} from './actions';
+import { getAccess } from './actions';
 import thunk from 'redux-thunk';
 //import remoteActionMiddleware from './middleware/remoteActionMiddleware';
 import App from './containers/App';
@@ -20,10 +20,12 @@ const store = createStore(
 /*const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);*/
 
-store.dispatch(loadTests('month'));
+/*store.dispatch(loadTests('month'));
 store.dispatch(loadCourses('month'));
 store.dispatch(loadAdaptation());
-store.dispatch(loadRequests())
+store.dispatch(loadRequests())*/
+
+store.dispatch(getAccess());
 
 const routes = <Route path="/" component={App}/>;
 

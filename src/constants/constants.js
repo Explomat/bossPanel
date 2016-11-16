@@ -4,7 +4,6 @@ const constants = keyMirror({
 	GET_ACCESS: null,
 	GET_ACCESS_FAILURE: null,
 	GET_ACCESS_SUCCESS: null,
-	SELECT_TAB: null,
 
 	SELECT_TESTS_RESULT_BY_PERIOD: null,
 	SELECT_TESTS_RESULT_BY_PERIOD_FAILURE: null,

@@ -1,3 +1,4 @@
+export * from './actionAppCreators';
 export * from './actionAdaptationCreators';
 export * from './actionCoursesCreators';
 export * from './actionRequestsCreators';

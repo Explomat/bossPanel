@@ -38,7 +38,7 @@ export default function requestsInfo(state = {
 	requestsInfo: [],
 	filteredRequestsInfo: [],
 	error: null,
-	isFetching: false
+	isFetching: true
 }, action) {
 	switch (action.type) {
 		case constants.SELECT_REQUESTS_RESULT:

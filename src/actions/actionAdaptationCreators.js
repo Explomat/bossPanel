@@ -1,6 +1,6 @@
 import {get} from '../utils/ajax';
 import config from '../config';
-import constants from '../constants'
+import constants from '../constants';
 
 
 function fetchAdaptation() {

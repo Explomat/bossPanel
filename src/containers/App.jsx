@@ -2,58 +2,27 @@ import React, { Component, PropTypes } from 'react';
 import * as actionCreators from '../actions';
 import omit from 'lodash/omit';
 
-import TestsBlock from '../components/tests/TestsBlock';
-import CoursesBlock from '../components/courses/CoursesBlock';
-import AdaptationBlock from '../components/adaptation/AdaptationBlock';
-import RequestsBlock from '../components/requests/RequestsBlock';
+import Container from './Container';
 import {AlertDanger} from '../components/modules/alert';
 
 import { connect } from 'react-redux';
 
-class App extends Component {
 
-  getBlocksMarkup(){
-    return ([
-      <div className="boss-panel__block">
-        <div className="boss-panel__description">Тесты и курсы</div>
-        <TestsBlock {...this.props}/>
-        <CoursesBlock {...this.props}/>
-      </div>,
-      <div className="boss-panel__block">
-        <div className="boss-panel__description">Адаптация</div>
-        <AdaptationBlock {...this.props}/>
-      </div>,
-      <div className="boss-panel__block">
-        <div className="boss-panel__description">Заявки</div>
-        <RequestsBlock {...this.props}/>
-      </div>
-    ])
-  }
+const App = ({access, isFetching, error, ...props}) => {
+  const { tests, courses, adaptation, requests } = props;
 
-  render(){
-    const { children } = this.props;
-    const { tests, courses, adaptation, requests } = this.props;
-    return (
-      <div className="boss-panel">
-        <div className="boss-panel__container">
-          <div className="boss-panel__block">
-            <div className="boss-panel__description">Тесты и курсы</div>
-            <TestsBlock {...tests} {...omit(this.props, ['tests'])}/>
-            <CoursesBlock {...courses} {...omit(this.props, ['courses'])}/>
-          </div>,
-          <div className="boss-panel__block">
-            <div className="boss-panel__description">Адаптация</div>
-            <AdaptationBlock {...adaptation} {...omit(this.props, ['adaptation'])}/>
-          </div>,
-          <div className="boss-panel__block">
-            <div className="boss-panel__description">Заявки</div>
-            <RequestsBlock {...requests} {...omit(this.props, ['requests'])}/>
-          </div>
-          {children}
-        </div>
+  return (
+    <div className="boss-panel">
+      <div className="boss-panel__container">
+        {isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
+          error ? <AlertDanger text={error} /> : 
+          access === true ? 
+          <Container {...props}/> :
+          <h1>Доступ запрещен</h1>
+        }
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 App.propTypes = {
@@ -61,7 +30,13 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-  return {...state};
+  const {isFetching, access, error} = state.app;
+  return {
+    isFetching,
+    access,
+    error,
+    ...state
+  }
 }
 
 /*function mapDispatchToProps(dispatch) {
