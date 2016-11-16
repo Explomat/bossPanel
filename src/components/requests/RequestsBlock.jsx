@@ -30,20 +30,21 @@ class SortHeaderCell extends React.Component {
   }
 }
 
+const ObjectCell = ({rowIndex, data, columnKey, ...props}) => {
+	const val = data[rowIndex][columnKey];
+	const href = data[rowIndex]['personHref'];
+	return (
+		<Cell {...props}>
+		    <a href={href} title={val} target="_blank">{val}</a>
+		</Cell>
+	);
+}
+
 const TextCell = ({rowIndex, data, columnKey, ...props}) => {
 	const val = data[rowIndex][columnKey];
 	return (
 		<Cell {...props}>
 		    <span title={val}>{val}</span>
-		</Cell>
-	);
-}
-
-const LinkCell = ({rowIndex, data, columnKey, ...props}) => {
-	const val = data[rowIndex][columnKey];
-	return (
-		<Cell {...props}>
-		    <a href={val}>Ссылка</a>
 		</Cell>
 	);
 }
@@ -95,7 +96,7 @@ class RequestBlock extends Component {
 						              ФИО
 						            </SortHeaderCell>
 						        }
-								cell={<TextCell data={filteredRequestsInfo} />}
+								cell={<ObjectCell data={filteredRequestsInfo} />}
 								width={270}
 					        />
 					        <Column
@@ -119,17 +120,6 @@ class RequestBlock extends Component {
 						        }
 								cell={<TextCell data={filteredRequestsInfo} />}
 								width={210}
-					        />
-					        <Column
-					        	columnKey="href"
-					        	header={
-						            <SortHeaderCell
-						              onSortChange={this._onSortChange}>
-						              Ссылка
-						            </SortHeaderCell>
-						        }
-								cell={<LinkCell data={filteredRequestsInfo} />}
-								width={285}
 					        />
 					    </Table>
 					</div>

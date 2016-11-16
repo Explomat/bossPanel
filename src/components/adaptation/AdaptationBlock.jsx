@@ -41,11 +41,12 @@ const DateCell = ({rowIndex, data, columnKey, ...props}) => {
 	);
 }
 
-const TextCell = ({rowIndex, data, columnKey, ...props}) => {
+const ObjectCell = ({rowIndex, data, columnKey, ...props}) => {
 	const val = data[rowIndex][columnKey];
+	const href = data[rowIndex]['personHref'];
 	return (
 		<Cell {...props}>
-		    <span title={val}>{val}</span>
+		    <a href={href} title={val} target="_blank">{val}</a>
 		</Cell>
 	);
 }
@@ -125,7 +126,7 @@ class AdaptationBlock extends Component {
 								              ФИО
 								            </SortHeaderCell>
 								        }
-										cell={<TextCell data={filteredAdaptResultInfo} />}
+										cell={<ObjectCell data={filteredAdaptResultInfo} />}
 										width={200}
 							        />
 							        <Column
