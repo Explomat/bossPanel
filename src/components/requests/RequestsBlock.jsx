@@ -65,7 +65,7 @@ class RequestBlock extends Component {
 			<div className="requests-block">
 				{isFetching ? <div className="overlay-loading overlay-loading--show"></div> : 
           		error ? <AlertDanger text={error} /> :
-				(count !== 0) ? 
+				(count === 0) ? 
 					<div className="requests-block__empty">
 						<span className="requests-block__empty-descr">Нет данных</span>
 					</div>:

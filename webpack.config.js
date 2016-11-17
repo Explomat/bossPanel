@@ -76,6 +76,11 @@ module.exports = {
             name: 'react',
             filename: 'react.js'
         }),
+        new webpack.DefinePlugin({
+          "process.env": { 
+             NODE_ENV: JSON.stringify("development") 
+           }
+        }),
         new ExtractTextPlugin('style/style.min.css', { allChunks: true }),
         new webpack.HotModuleReplacementPlugin()
     ]
