@@ -1,5 +1,6 @@
 import React from 'react';
-import {some} from 'lodash';
+import {ButtonPrimary} from '../../button';
+import some from 'lodash/some';
 import cx from 'classnames';
 
 class HeaderCol extends React.Component {
@@ -68,11 +69,10 @@ class Item extends React.Component {
 		}
 	}
 
-	getMarkup(){
+	render(){
 		var data = this.props.data;
 		var classesButton = cx({
 			'body-row__add-btn': true,
-			'event-btn': !this.props.isSelected,
 			'body-row__add-btn--selected': this.props.isSelected
 		});
 		var classesIcon = cx({
@@ -82,19 +82,15 @@ class Item extends React.Component {
 		return (
 			<tr className="body-row" onClick={this.handleAddItem}>
 				<td>
-					<button className={classesButton}>
+					<ButtonPrimary className={classesButton} reverse={true}>
 						<i className={classesIcon}></i>
-					</button>
+					</ButtonPrimary>
 				</td>
 				{Object.keys(data).map((c, index) => {
 					return <td key={index} className="body-row__col oneline">{data[c]}</td>
 				})}
 			</tr>
 		);
-	}
-
-	render(){
-		return this.getMarkup();
 	}
 };
 

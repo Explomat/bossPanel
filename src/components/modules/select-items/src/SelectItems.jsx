@@ -2,7 +2,8 @@ import React from 'react';
 import SelectedItems from './SelectedItems';
 import Items from './Items';
 import Filters from './Filters';
-import Ajax from '../../../../utils/Ajax';
+import {ButtonPrimary} from '../../button';
+import Ajax from '../../../../utils/ajax';
 import {some} from 'lodash';
 import cx from 'classnames';
 import './style/select-items.scss';
@@ -22,12 +23,11 @@ class SelectItems extends React.Component {
 	constructor(props){
 		super(props);
 		this.types = {'integer': 'integer', 'date': 'date'};
-		this.errors = { MAX_SELECTED_ITEMS: `Вы не можете выбрать более ${this.props.maxSelectedItems} элемента(ов)` };
+		this.errors = { MAX_SELECTED_ITEMS: `Вы не можете выбрать более ${props.maxSelectedItems} элемента(ов)` };
 
 		this.onSort = this.onSort.bind(this);
 		this.onAddItem = this.onAddItem.bind(this);
 		this.onRemoveItem = this.onRemoveItem.bind(this);
-		this.handleClose = this.handleClose.bind(this);
 		this.handleSave = this.handleSave.bind(this);
 		this.handleChangeSearch = this.handleChangeSearch.bind(this);
 		this.handleChangePage = this.handleChangePage.bind(this);
@@ -66,31 +66,29 @@ class SelectItems extends React.Component {
 		items: React.PropTypes.array,
 		selectedItems: React.PropTypes.array,
 		maxSelectedItems: React.PropTypes.number,
-		query: React.PropTypes.string,
 		title: React.PropTypes.string,
 		onClose: React.PropTypes.func,
-		onSave: React.PropTypes.func
+		onSave: React.PropTypes.func,
+		onChange: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		title: '',
-		isDisplay: false
+		maxSelectedItems: Number.MAX_VALUE
 	}
 
 	componentDidMount(){
-		var self = this;
-		/*var _items = items.items.map(item => {
-			Object.keys(item.data).forEach((col, index) => {
-				item.data[col] = self._castType(item.data[col], items.headerCols[index].type);
-			})
-			return {
-				id: item.id,
-				data: item.data
-			}
-		});
-		this.setState({items: _items, headerCols: items.headerCols, isLoading: false});*/
+		/*var self = this;
 		this._getData(this.props.query, this.state.page, this.state.search).then(data => {
 			self._setData(data);
+		});*/
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			items: nextProps.items ? nextProps.items : [], 
+			selectedItems: nextProps.selectedItems ? nextProps.selectedItems : [],
+			isLoading: false
 		});
 	}
 
@@ -121,13 +119,13 @@ class SelectItems extends React.Component {
 		}
 	}
 
-	_getData(query, page, search){
+	/*_getData(query, page, search){
 		return Ajax.sendRequest(query + '&page=' + page + '&search=' + search).then(_items => {
 			return JSON.parse(_items);
 		}).catch(function(){
 			return [];
 		});
-	}
+	}*/
 
 	_setData(data){
 		var self = this;
@@ -184,12 +182,6 @@ class SelectItems extends React.Component {
 		this.setState({ selectedItems: _selectedItems });
 	}
 
-	handleClose(){
-		if (this.props.onClose){
-			this.props.onClose();
-		}
-	}
-
 	handleSave(){
 		if (this.props.onSave){
 			this.props.onSave(this.state.selectedItems);
@@ -199,17 +191,23 @@ class SelectItems extends React.Component {
 	handleChangeSearch(search){
 		var self = this;
 		this.setState({search: search, isLoading: true, page: 1});
-		this._getData(this.props.query, 1, search).then(data => {
+		if (this.props.onChange){
+			this.props.onChange(search, this.state.page);
+		}
+		/*this._getData(this.props.query, 1, search).then(data => {
 			self._setData(data);
-		});
+		});*/
 	}
 
 	handleChangePage(page){
 		var self = this;
 		this.setState({page: page, isLoading: true});
-		this._getData(this.props.query, page, this.state.search).then(data => {
+		if (this.props.onChange){
+			this.props.onChange(this.state.search, page);
+		}
+		/*this._getData(this.props.query, page, this.state.search).then(data => {
 			self._setData(data);
-		});
+		});*/
 	}
 
 	handleCloseError(){
@@ -217,36 +215,39 @@ class SelectItems extends React.Component {
 	}
 
 	render() {
-		var errorClass = cx({
+		const {title, headerCols, pagesCount } = this.props;
+		const {isShowError, isLoading, error, page, search, items, selectedItems } = this.state;
+		const errorClass = cx({
 			'alert': true,
 			'alert--info': true,
 			'select-item__error': true,
-			'select-item__error--show': this.state.isShowError
+			'select-item__error--show': isShowError
 		});
+
 		return (
 			<div className="select-items">
 				<div className="select-items__modal-box">
 					<div className="select-items__content">
 						<div className="select-item__header">
-							<button type="button" className="close-btn" onClick={this.handleClose}>&times;</button>
-							<span>{this.props.title}</span>
+							<button type="button" className="close-button" onClick={this.props.onClose}>&times;</button>
+							<span>{title}</span>
 						</div>
 						<div className="select-item__body clearfix">
 							<Filters 
-								page={this.state.page} 
-								pagesCount={this.state.pagesCount}
-								search={this.state.search} 
+								page={page} 
+								pagesCount={pagesCount}
+								search={search} 
 								onSearch={this.handleChangeSearch}
 								onPage={this.handleChangePage}/>
-							<Items items={this.state.items} selectedItems={this.state.selectedItems} headerCols={this.state.headerCols} isLoading={this.state.isLoading}/>
-							<SelectedItems items = {this.state.selectedItems} />
+							<Items items={items} selectedItems={selectedItems} headerCols={headerCols} isLoading={isLoading}/>
+							<SelectedItems items = {selectedItems} />
 						</div>
 						<div className="select-item__footer">
 							<div className={errorClass}>
-								<button type="button" className="close-btn" onClick={this.handleCloseError}>&times;</button>
-								<span>{this.state.error}</span>
+								<button type="button" className="close-button" onClick={this.handleCloseError}>&times;</button>
+								<span>{error}</span>
 							</div>
-							<button type="button" className="event-btn event-btn--reverse" onClick={this.handleSave}>Сохранить</button>
+							<ButtonPrimary onClick={this.handleSave} text='Сохранить' />
 						</div>
 					</div>
 				</div>

@@ -17,6 +17,9 @@ addServer({id: '6322023433485303550', name: 'Test'})
 	]
 );
 
+addServer({id: '6257108030223689633', name: 'Test1'})
+.addActions(['getCollaborators'])
+
 var obj = {
 
 	url: {

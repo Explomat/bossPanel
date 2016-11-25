@@ -39,17 +39,13 @@ ButtonTab.defaultProps = {
     selected: false
 }
 
-export class ButtonTabs extends React.Component {
-
-    render() {
-        const classes = cx('button-tabs', this.props.className);
-
-        return (
-            <div className={classes}>
-                {this.props.children}
-            </div>
-        );
-    }
+export const ButtonTabs = ({className, children}) => {
+    const classes = cx('button-tabs', className);
+    return (
+        <div className={classes}>
+            {children}
+        </div>
+    )
 }
 
 ButtonTabs.propTypes = {

@@ -32,6 +32,7 @@
 			}
 			.select-item__footer{
 				@include modal-box__footer;
+				margin-top: 15px;
 
 				.select-item__error {
 					display: none;
@@ -69,7 +70,7 @@
 		
 			.page {
 				outline: 0;
-			    height: 32px;
+			    padding: 0;
 			    line-height: 32px;
 			    text-align: center;
 			    width: 70px;
@@ -80,7 +81,6 @@
 				text-align: center;
 			    display: inline-block;
 			    vertical-align: middle;
-			    height: 32px;
 			    width: 70px;
 			    line-height: 32px;
 			    font-size: 13.3px;
@@ -132,7 +132,7 @@
 	.items-wrapper {
 		position: relative;
 		width: 70%;
-		height: calc(100% - 50px);
+		height: calc(100% - 35px);
 		float: left;
 
 		.items-wrapper__header {
@@ -175,7 +175,7 @@
 		.items-wrapper__body {
 			overflow-y: auto;
     		overflow-x: hidden;
-    		height: calc(100% - 37px);
+    		height: calc(100% - 50px);
     		border-right: 1px solid #ccc;
     		margin-top: 10px;
 

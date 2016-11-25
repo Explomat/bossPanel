@@ -1,4 +1,5 @@
 import React from 'react';
+import {ButtonPrimary} from '../../button';
 
 class SelectedItem extends React.Component { 
 
@@ -31,9 +32,9 @@ class SelectedItem extends React.Component {
 	render(){
 		return(
 			<div className="item" onClick={this.handleRemoveItem}>
-				<button className="item__button event-btn">
-					<i className="icon-minus"></i>
-				</button>
+				<ButtonPrimary className="item__button" reverse={true}>
+						<i className="icon-minus"></i>
+				</ButtonPrimary>
 				<label className="item__text oneline">{this._getFirstField()}</label>
 			</div>
 		);

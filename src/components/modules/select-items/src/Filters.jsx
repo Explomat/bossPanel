@@ -1,13 +1,18 @@
 import React from 'react';
 import SearchBar from'../../search-bar';
 import {TextBase} from '../../text-label';
-import extend from 'extend';
 
-var Paging = React.createClass(extend({}, TextBase, {
+var Paging = React.createClass({
 
 	propTypes: {
 		value: React.PropTypes.number,
 		onChange: React.PropTypes.func
+	},
+
+	getInitialState: function() {
+		return {
+			value: this.props.value
+		}
 	},
 
 	getDefaultProps() {
@@ -15,9 +20,8 @@ var Paging = React.createClass(extend({}, TextBase, {
 			value: 1,
 			pagesCount: 1,
 			isValid(val){
-				return /^[1-9]{1,}(\d+)?$/.test(val) && Number(val) <= this.pagesCount;
-			},
-			notValidClass: 'filters__notValid'
+				return /^[1-9]{1,}(\d+)?$/.test(val) && Number(val) >= 1;
+			}
 		}
 	},
 
@@ -48,17 +52,38 @@ var Paging = React.createClass(extend({}, TextBase, {
 		}
 	},
 
+	handleChange(e){
+		const val = e.target.value;
+		const {isValid} = this.props;
+		if (isValid(val)){
+			this.setState({value: val});
+		}
+	},
+
+	handleblur(e){
+		if (this.props.onChange){
+			this.props.onChange(e.target.value);
+		}
+	},
+
 	render(){
 		return (
 			<div className="filters__paging">
-				<i className="fa fa-arrow-left" onClick={this.handleChangeDecrementPage}></i>
-				<input ref="page" type="text" className="page" value={this.state.value} onKeyDown={this.handleKeyDown} onBlur={this.handleBlur} onChange={this.handleChange}/>
+				<i className="icon-arrow-left" onClick={this.handleChangeDecrementPage}></i>
+				<input 
+					ref="page" 
+					type="text" 
+					className="page" 
+					value={this.state.value} 
+					onKeyDown={this.handleKeyDown} 
+					onBlur={this.handleChange} 
+					onChange={this.handleChange}/>
 				<span className="pages-count">{this.props.pagesCount}</span>
-				<i className="fa fa-arrow-right" onClick={this.handleChangeIncrementPage}></i>
+				<i className="icon-arrow-right" onClick={this.handleChangeIncrementPage}></i>
 			</div>
 		);
 	}
-}));
+});
 
 class Filters extends React.Component {
 	

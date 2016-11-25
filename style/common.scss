@@ -71,30 +71,20 @@
     }
 }
 
-.default-button {
+.caret {
     display: inline-block;
-    padding: .5em;
-    background-image: linear-gradient(#fff, #ddd);
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    text-align: center;
-    cursor: pointer;
-    outline: 0;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
     vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    transition: all .3s ease-out .02s;
+    color: #444;
 
-    &:after {
-        content: '';
-        display: inline-block;
-        width: 0;
-        height: 100%;
-        vertical-align: middle;
-    }
-
-    &:active {
-        background: linear-gradient(#ddd, #fff);
-    }
-    &.default-button--selected{
-        background: linear-gradient(#f2f2f2, #a0a0a0);
+    &.caret--rotate {
+        transform: rotate(180deg);
     }
 }
 
