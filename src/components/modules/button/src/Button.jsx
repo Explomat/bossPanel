@@ -9,7 +9,7 @@ export const ButtonDefault = ({text, className, disabled, onClick, children, ...
         'button-default--disabled': disabled
     }, className)
     return (
-        <button type="button" {...props} className={classes} onClick={onClick}>
+        <button type="button" {...props} disabled={disabled} className={classes} onClick={onClick}>
             {text}
             {children}
         </button>

@@ -24,8 +24,8 @@
     }
 
     &.button-default--disabled {
-        background-color: #bababa;
-        border: 1px solid darken(#bababa, 10%);
+        background-color: #bababa !important;
+        border: 1px solid darken(#bababa, 10%) !important;
     }
 
     &.button-default--selected{
