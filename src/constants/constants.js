@@ -9,7 +9,8 @@ let remoteConstants = createRemoteActions([
 	'SELECT_TESTS_RESULT',
 	'SELECT_COURSES_RESULT',
 	'SELECT_ADAPT_RESULT',
-	'SELECT_REQUESTS_RESULT'
+	'SELECT_REQUESTS_RESULT',
+	'SELECT_REPORTS'
 ]);
 
 const constants = keyMirror({

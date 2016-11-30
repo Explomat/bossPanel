@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ChartBlock from '../chart/ChartBlock';
 import {AlertDanger} from '../modules/alert';
-import SelectItems from '../modules/select-items';
-import {get} from '../../utils/ajax';
-import config from '../../config';
 
 import './courses-block.scss';
 

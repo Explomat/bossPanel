@@ -11,6 +11,17 @@
 	    .boss-panel__block{
 	    	margin-bottom: 40px;
 
+	    	&.boss-panel__block--tests-courses {
+	    		display: inline-block;
+	    		width: 45%;
+	    	}
+
+	    	&.boss-panel__block--reports {
+	    		display: inline-block;
+	    		width: 45%;
+	    		float: right;
+	    	}
+
 	    	.boss-panel__description {
 	    		border-bottom: 1px solid #ccc;
 			    margin-bottom: 32px;

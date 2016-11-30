@@ -4,11 +4,13 @@ import adaptResultInfo from './adaptResultInfo';
 import coursesResultInfo from './coursesResultInfo';
 import requestsInfo from './requestsInfo';
 import testsResultInfo from './testsResultInfo';
+import reportsInfo from './reportsInfo';
 
 export default combineReducers({
 	app: app,
-	adaptation: adaptResultInfo,
+	tests: testsResultInfo,
 	courses: coursesResultInfo,
-	requests: requestsInfo,
-	tests: testsResultInfo
+	reports: reportsInfo,
+	adaptation: adaptResultInfo,
+	requests: requestsInfo
 });

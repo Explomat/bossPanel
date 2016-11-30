@@ -1,0 +1,10 @@
+.reports-block {
+	position: relative;
+	height: 378px;
+	overflow-x: hidden;
+    overflow-y: auto;
+
+	.reports-block__item {
+		padding: 8px;
+	}
+}

@@ -13,7 +13,8 @@ addServer({id: '6322023433485303550', name: 'Test'})
 		'selectTestsResult',
 		'selectCoursesResult',
 		'selectAdaptResult',
-		'selectRequestsResult'
+		'selectRequestsResult',
+		'selectReports'
 	]
 );
 
