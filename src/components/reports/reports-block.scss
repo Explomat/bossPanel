@@ -1,10 +1,21 @@
 .reports-block {
 	position: relative;
 	height: 378px;
+	width: 44%;
 	overflow-x: hidden;
     overflow-y: auto;
 
+    position: absolute;
+    display: inline-block;
+    box-shadow: 1px 1px 8px -1px rgba(0,0,0,.69);
+    padding: 24px;
+
 	.reports-block__item {
 		padding: 8px;
+
+		.reports-block__icon{
+			color: #444;
+			margin-right: 8px;
+		}
 	}
 }

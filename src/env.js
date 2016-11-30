@@ -1,1 +1,1 @@
-const env = 'production';export default env;
+const env = 'development';export default env;
