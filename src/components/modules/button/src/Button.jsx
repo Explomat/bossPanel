@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import cx from 'classnames';
 
 import './style/button.scss';
@@ -57,7 +57,7 @@ export const ButtonDanger = ({className, reverse, ...props}) => {
 };
 
 ButtonDefault.propTypes = {
-    text: React.PropTypes.string.isRequired,
+    text: React.PropTypes.string,
     onClick: React.PropTypes.func,
     className: React.PropTypes.string
 }
