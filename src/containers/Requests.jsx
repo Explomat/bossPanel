@@ -20,7 +20,7 @@ class Requests extends Component {
 function filterSearch(arr, searchValue){
 	return arr.filter(item => {
 		const name = item.personFullname.toLowerCase();
-		const code = item.code.toLowerCase();
+		const code = item.code.toString().toLowerCase();
 		const objectName = item.objectName.toLowerCase();
 		return (~name.indexOf(searchValue) || ~code.indexOf(searchValue) || ~objectName.indexOf(searchValue));
 	});
